@@ -6,7 +6,7 @@
 import requests
 import random
 
-class PsuSmart(object):
+class CheckContract(object):
 
     def __init__(self):
         self.a = 0
@@ -43,28 +43,41 @@ class PsuSmart(object):
         self.doit(req)
 
     def req_two(self):
-        method_m = "invokeView"
+        method_name = "invokeView"
         req_type = "getAllProductIds"
         p_str = "() return String"
         params_list = [*self.start_list, req_type, p_str, self.emp_list]  # 4 items
         params = ("params", params_list,)
-        self.doit(method_m, params)
+        self.doit(method_name, params)
 
 #curl -s -X POST -H -v "Content-Type: application/json"  --data '{"jsonrpc":"2.0",
 # "method":"invokeView","params":[24442,"TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM","getReviews","(String productId) return Ljava/util/List;",["baseball"]],"id":914}'  http://78.47.206.255:18003/
 
     def req_three(self):
-        method_m = "invokeView"
+        method_name = "invokeView"
         req_type = "getReviews"
-        p_str = "() return String"
-        params_list = [*self.start_list, req_type, p_str, self.emp_list]  # 4 items
+        p_str = "(String productId) return Ljava/util/List;"
+        params_list = [*self.start_list, req_type, p_str, ["baseball"]]  # 4 items
         params = ("params", params_list,)
-        self.doit(method_m, params)
+        self.doit(method_name, params)
 
+     def get_contract(self):
+         method_name = "invokeView"
+         req_type = "getContract"
+         p_str = "(String productId) return Ljava/util/List;"
+         arg0 = ''
+         arg1 = ''
+         short_list = [arg0, arg1]  # 4 items
+         params_list = [*self.start_list, req_type, p_str, short_list]  # 4 items
+         params = ("params", params_list,)
+         self.doit(method_name, params)
+
+
+#          "raw": "{\n\"jsonrpc\":\"2.0\",\n\"method\":\"getContract\",\n\"params\":[arg0, arg1],\n\"id\":1234\n}\n"
 
 if __name__ == "__main__":
-    p = PsuSmart()
-    p.req_two()
+    c = CheckContract()
+    c.req_three()
 
     print("done")
 
