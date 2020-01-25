@@ -1,7 +1,7 @@
 <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 html {
   font-family: 'Montserrat', sans-serif;
-  background: #eee;
+  background: #c9e0df;
   padding: 1rem;
 }
 
@@ -187,7 +187,7 @@ input[type=submit] {
     background-image: linear-gradient(to bottom right, #78D0EA, #168a8a); /* Standard syntax (must be last) */
 }
 
-.box{
+.box2{
   position: static;
   z-index:1
   height: 30px;
