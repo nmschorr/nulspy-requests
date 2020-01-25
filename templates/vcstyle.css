@@ -1,4 +1,4 @@
-<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
 html {
   font-family: 'Montserrat', sans-serif;
   background: #c9e0df;
@@ -9,12 +9,14 @@ body {
   max-width: 960px;
   margin: 0 auto;
   background: white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: medium;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Montserrat', sans-serif;
   color: slategrey;
-  margin: 1rem 0;
+  margin: 10px 0;
 }
 
 a {
@@ -41,6 +43,15 @@ nav h1 {
 nav h1 a {
   text-decoration: none;
   padding: 0.25rem 0.5rem;
+}
+
+.mybutton{
+        min-width:3em;  
+        background: linear-gradient(to bottom right, #ebffff 0%, #004a6b 100%);
+        color:white; 
+        text-shadow: .03em  .03em .03em #e1e1ea; padding: .5em 1em; font-size: 2em;
+        font-weight:500;   
+        font-family:Montserrat, sans-serif; border-radius:.7em;
 }
 
 nav ul  {
@@ -170,7 +181,7 @@ input[type=submit] {
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.box{
+.box {
   position: static;
   z-index:1
   height: 30px;
@@ -181,10 +192,10 @@ input[type=submit] {
   font-weight: 750;
   padding-top:.5em;
   text-align: center;
-   box-shadow:2px 4px 8px #168a8a;
+  box-shadow:2px 4px 8px #168a8a;
   background-color: #78D0EA;
   background-color: cyan; /* For browsers that do not support gradients */
-    background-image: linear-gradient(to bottom right, #78D0EA, #168a8a); /* Standard syntax (must be last) */
+  background-image: linear-gradient(to bottom right, #78D0EA, #168a8a); /* Standard syntax (must be last) */
 }
 
 .box2{
@@ -201,3 +212,4 @@ input[type=submit] {
   background-color: #78D0EA;
   background-image: "https://schorrmedia.com/wp-content/uploads/2013/09/freeVectorBackgroundLandscape.jpg"
 }
+

@@ -1,6 +1,6 @@
 <!DOCTYPE html  PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
-<html lang="en-US" prefix="og: http://ogp.me/ns#" style=" background:#c9e0df!important; padding: 1rem;">
+<html lang="en-US" prefix="og: http://ogp.me/ns#" style=" background:slategray!important; padding: 1rem;">
 
 <head profile="https://www.w3.org/2005/10/profile">
 <link rel="icon" type="image/png" href="nulslogo.jpg">
@@ -18,19 +18,33 @@
   <meta property="og:title" content="VikingChain" />
   <meta property="og:description" content="This will query the Nuls Chain Factory blockchain." />
   <meta property="og:url" content="https://nuls.io/" />
-  <meta property="og:image" content="nulslogo.jpg" />
-
+  <meta property="og:image" content="vikinglogo.jpg" />
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="vcstyle.css" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+  <script>
+    // wait for the DOM to be loaded
+    $(function() {
+      // bind 'myForm' and provide a simple callback function
+      $('#myForm').ajaxForm(function() {
+        $( "#answerarea").append( "Here's the result of your request: ");
+      });
+    });
+
+  </script>
+
+
+ </head>
 <style>
-    .mybutton{
-        min-width:3em;  
-        background: linear-gradient(to bottom right, #ebffff 0%, #004a6b 100%);
-        color:white; 
-        text-shadow: .03em  .03em .03em #e1e1ea; padding: .5em 1em; font-size: 2em;
-        font-weight:500;   
-        font-family:Montserrat, sans-serif; border-radius:.7em;
-}
- 
+
+  .mylines: { 
+    margin-top:.3em;
+  }
         
         </style>
 <title>&emsp;VikingChain</title>
@@ -38,99 +52,180 @@
 
 <body>
 
+<container style="margin: 2em;">   <!--main area --->
 
-<div style="margin-left: 50px;">   <!--main area --->
+<img src="./vikinglogo.JPG" alt="VikingChain">
+ 
+<h2 style="margin-left:4em; align-items: center;color:darkslateblue;text-shadow: .03em  .03em .03em #c6e7d1;">
+       Nuls Smart Contract Query with Chain Factory</h2>
 
-<p><br></p>
-    <h1>Welcome to VikingChain</h1>
-
-
-<br><br>
-
-
-<h3>Nuls Smart Contract with Chain Factory</h3><br>
-<h4>Built with Java and Nuls</h4><br>
-
-<p><h3>Chain Factory is a user interface that allows developers to build a new chain or enhance an existing
-    chain by automatically deploying modules selected from a warehouse of endless modular solutions.</h3></p>
+<p style="margin-left:9em;margin-right:9em;padding:1em;color:#4d4d5a;">
+  Chain Factory is a user framework that allows developers to build a new chain or enhance an existing
+    chain by easily deploying modules selected from a warehouse of modular solutions.</p>
 
 
-<br><br><br>
+  <!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< form >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+  <div id="myform" style="margin-left:7em; margin-right:4em; padding-left:2em;
+  background: linear-gradient(to bottom right, #eaf1f1 0%, #a9bcc5 100%);
+  border-radius:.7em;" >
 
-<div style="padding-left: 100px;">
+<form target="mytextarea" name="makeselection" method ="POST" >
+    <span style="font-family: Montserrat, sans-serif;
+         font-weight: 500; margin-left:2em; padding-left: 2em; color:#191942;">
 
+     <p> Select a Query:</p>
 
-
-
- <div id="myform" >
-<form target="mytextarea"  action="" method ="POST" >
-    <div style="font-family: Montserrat, sans-serif;
-         font-weight: 700; padding-left: 2em; padding-top: .5em; color:#0e0e3f;">
-     Make a Selection:<br>
-
-     <p> Make a Selection:</p>
-
-     <div>
-       <input type="radio" id="getAllProductReviews" name="getAllProductReviews" value="getAllProductReviews"
+     <br><span>
+        <input type="radio" id="getAllProductIds" name="makeselection" value="getAllProductIds">
+        <label for="myform">Get all ProductIds</label>
+      </span>    
+      <br style="margin-top:.3em;">
+     <span>
+       <input type="radio" id="getContractList" name="makeselection" value="getContractList">
+       <label for="myform">Get Contract List</label>
+     </span>      
+     <br>
+     <span>
+       <input type="radio" id="getAllProductReviews" name="makeselection" value="getAllProductReviews"
               checked>
-       <label for="getprodrevs">Get All ProductId Reviews</label>
-     </div>
-     
-     <div>
-       <input type="radio" id="getContractList" name="getContractList" value="getContractList">
-       <label for="dewey">Get Contract List</label>
-     </div>
-     
-     <div>
-        <input type="radio" id="getAllProductIds" name="getAllProductIds" value="getAllProductIds">
-        <label for="dewey">Get all ProductIds</label>
-      </div>
-     
-      <div>
-        <input type="radio" id="getAllProductIds" name="getAllProductIds" value="getAllProductIds">
-        <label for="dewey">Get all ProductIds</label>
-      </div>     Get Contract Balance 
+       <label for="myform">Get All ProductId Reviews</label>
+     </span>
+     <br>
+      <span>
+        <input type="radio" id="getContractBalance"  name="makeselection" value="getContractBalance">
+        <label for="myform">Get Contract Balance</label>
+      </span>
+      <br>
+      <span>
+        <input type="radio" id="getTransaction" name="makeselection" value="getTransaction">
+        <label for="myform">getTransaction</label>
+      </span>   
+    <br> <br>
+    <span> 
+    <input type="submit" class="makeselection" id="makeselection" name="makeselection" value="Run Query" 
+          style="width:9em; 
+          background: linear-gradient(to top right, #b587c0 0%, #062230 100%);
+          color:white; text-shadow: .03em  .03em .03em #e1e1ea; padding: .5em; font-size: 1em;
+          font-weight:700; font-family:Montserrat, sans-serif; border-radius:.7em;">
     
-    <input type="submit" value="Do it" style="min-width:3em;  background: linear-gradient(to bottom right, #ebffff 0%, #004a6b 100%);
-           color:white; text-shadow: .03em  .03em .03em #e1e1ea; padding: .5em 1em; font-size: 2em;
-            font-weight:500;   font-family:Montserrat, sans-serif; border-radius:.7em;">
+        </span>
+        <br> &nbsp;  <br>
+    </form> <!-- ### end myform ###  -->
+</div> <!-- div myform -->
+
+</container>
+<br>
+<container>
+
+
+<span id="answerarea" class="answerarea"> Answers Below:
+  
+
+  <br> &nbsp;  <br>
+
+
+</span>
+
+<br> &nbsp;  <br>
+
+
+</container>
+   <!--
     
-        </div>
-    </form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
 
+    function formatJson(msg) {
+        var rep = "~";
+        var jsonStr = JSON.stringify(msg, null, rep)
+        var str = "";
+        for (var i = 0; i <jsonStr.length; i++){
+            var text2 = jsonStr.charAt(i)
+            if(i > 1) {
+                var text = jsonStr.charAt(i - 1)
+                if (rep != text && rep == text2) {
+                    str += "<br/>"
+                }
+            }
+            str += text2;
+        }
+        jsonStr = "";
+        for (var i = 0; i < str.length; i++) {
+            var text = str.charAt(i);
+            if (rep == text)
+                jsonStr += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+            else {
+                jsonStr += text;
+            }
+            if (i == str.length - 2)
+                jsonStr += "<br/>"
+        }
+        return jsonStr;
+    }
+    $(function () {
+        $("#create").show();
+        $("#createMail").click(function () {
+            var one = $("#1_one").val();
+            var mailAddress = $("#1_mailAddress").val();
+            var password = $("#1_password").val();
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:18003/",
+                data: JSON.stringify({
+                    "one": one,
+                    "password": password,
+                    "mailAddress": mailAddress
+                }),
+                success: function (data) {
+                    console.log(data)
+                    if (data.success) {
+                        $("#1_res").text(data.data);
+                    } else {
+                        $("#1_res").text(data.msg)
+                    }
+                },
+                contentType: 'application/json',
+                dataType: "json"
+            });
+        });
+        $("#sendMail").click(function () {
+            var address = $("#2_address").val();
+            var mailAddress = $("#2_mailAddress").val();
+            var password = $("#2_password").val();
+            var title = $("#2_title").val();
+            var content = $("#2_content").val();
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:9999/mail/sendMail",
+                data: JSON.stringify({
+                    "senderAddress": address,
+                    "password": password,
+                    "mailAddress": mailAddress,
+                    "title": title,
+                    "content": content
+                }),
+                success: function (data) {
+                    console.log(data)
+                    if (data.success) {
+                        $("#2_res").text(("Here is your transaction hash: " + data.data)),
+                            $("#2b_res").text((data.msg));
+                    } else {
+                        $("#2_res").text(("Something went wrong. ")),
+                           $("#2b_res").text(("Please reload page and try again."));
+                    }
+                },
+                contentType: 'application/json',
+                dataType: "json"
+            });
+        });
+        $(".left > li").click(function () {
+            $(".right > div").hide();
+            $("#" + $(this).data("v")).show();
+        })
 
-</div>  
-
-<div id="mytextarea">  </div>
-
-
-    <button type="button" class="mybutton"> Free Chain Building</button>
-<br>    <br>
-    <h2>Get all ProductIds</h2>
-    <button type="button" class="mybutton> Call </button>
-
-    <br>    <br>
-    <button type="button" class="mybutton">  Get All ProductId Reviews </button>
-
-    <br>    <br>
-
-    <button type="button" class="mybutton">  Get Contract Balance< </button>
-
-    <br>    <br>
-
-    <button type="button" class="mybutton"><!----><!----> Get Contract Balance </button>
-    <br>    <br>
-    <button type="button" cclass="mybutton"><!----><!----> Get Contract Balance </button>
-    <br>    <br>
-
-    <h2>Get All ProductId Reviews - Enter ProductId</h2>
-    <br>    <br>
-        <h2>Get Contract Balance</h2>
-        <br>    <br>
-        <h2>Get Payer Balance</h2>
-        <br>    <br>    <br>
-
-
+    });
+</script>
+      
 getAccountBalance
 getAccountContractList
 getAccount
@@ -173,7 +268,7 @@ invokeView
 search
 validateTx
 
-
+-->
 
 
 
@@ -212,4 +307,27 @@ font-weight: 700; font-size:1em; color:#E86138;" href="http://schorrmedia.com">B
 
     <input type="text" size="24" name="name">&nbsp;
 
+$("#runquery1").click(function(){
+            var one = $("#3_one").val();
+            var hash = $("#3_hash").val();
+            var password = $("#3_password").val();
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:9999/mail/viewMail",
+                data: JSON.stringify({
+                    "mailAddress" : address,
+                    "password" : password,
+                    "hash" : hash
+                }),
+                success: function(data){
+                    console.log(data)
+                    if(data.success){
+                        $("#3_result").html(formatJson(data.data));
+                    }else{
+                        $("#3_result").text(data.msg)
+                    }
+                },
+                contentType: 'application/json',
+                dataType: "json"
+            });
 --->
