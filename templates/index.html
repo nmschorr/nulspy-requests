@@ -22,10 +22,11 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="vcstyle.css" />
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-
-
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
+
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
 
   <script>
     // wait for the DOM to be loaded
@@ -42,9 +43,7 @@
  </head>
 <style>
 
-  .mylines: { 
-    margin-top:.3em;
-  }
+
         
         </style>
 <title>&emsp;VikingChain</title>
@@ -59,7 +58,7 @@
 <h2 style="margin-left:4em; align-items: center;color:darkslateblue;text-shadow: .03em  .03em .03em #c6e7d1;">
        Nuls Smart Contract Query with Chain Factory</h2>
 
-<p style="margin-left:9em;margin-right:9em;padding:1em;color:#4d4d5a;">
+<p style="margin-left:7em;margin-right:7em;padding:1em;color:#4d4d5a;">
   Chain Factory is a user framework that allows developers to build a new chain or enhance an existing
     chain by easily deploying modules selected from a warehouse of modular solutions.</p>
 
@@ -67,20 +66,20 @@
   <!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< form >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
   <div id="myform" style="margin-left:7em; margin-right:4em; padding-left:2em;
   background: linear-gradient(to bottom right, #eaf1f1 0%, #a9bcc5 100%);
-  border-radius:.7em;" >
+  border-radius:.7em;font-family: 'Open Sans', sans-serif;" >
 
 <form target="mytextarea" name="makeselection" method ="POST" >
     <span style="font-family: Montserrat, sans-serif;
          font-weight: 500; margin-left:2em; padding-left: 2em; color:#191942;">
-
-     <p> Select a Query:</p>
-
+    <br>
+      Select a Query:
+      <br>
      <br><span>
         <input type="radio" id="getAllProductIds" name="makeselection" value="getAllProductIds">
         <label for="myform">Get all ProductIds</label>
       </span>    
-      <br style="margin-top:.3em;">
-     <span>
+      <br>
+      <span>
        <input type="radio" id="getContractList" name="makeselection" value="getContractList">
        <label for="myform">Get Contract List</label>
      </span>      
@@ -98,40 +97,58 @@
       <br>
       <span>
         <input type="radio" id="getTransaction" name="makeselection" value="getTransaction">
-        <label for="myform">getTransaction</label>
+        <label for="myform">Get Transaction</label>
       </span>   
     <br> <br>
     <span> 
     <input type="submit" class="makeselection" id="makeselection" name="makeselection" value="Run Query" 
-          style="width:9em; 
-          background: linear-gradient(to top right, #b587c0 0%, #062230 100%);
+          style="width:9em; margin-left:3em;
+          background: linear-gradient(to top right, #b587c0 0%, #0f3d55 100%);
           color:white; text-shadow: .03em  .03em .03em #e1e1ea; padding: .5em; font-size: 1em;
           font-weight:700; font-family:Montserrat, sans-serif; border-radius:.7em;">
     
         </span>
         <br> &nbsp;  <br>
     </form> <!-- ### end myform ###  -->
-</div> <!-- div myform -->
+</div #myForm> <!-- div myform -->
 
 </container>
 <br>
-<container>
+  <span style="margin-left:6em">Answers Below:</span>
+
+<p id="answerarea" class="answerarea_class" style="margin-left:6em;">
+</p>  
 
 
-<span id="answerarea" class="answerarea"> Answers Below:
-  
-
-  <br> &nbsp;  <br>
 
 
-</span>
+<!--  ######################################## script  -->
+<script>
 
-<br> &nbsp;  <br>
+$(document).ready(function(){
+
+  $("#makeselection").click(function () {
+       var result = $("#makeselection").val();
+   
+    document.getElementById("answerarea").innerHTML = result;
 
 
-</container>
-   <!--
+      }
+      );
+    });
+
+
+  </script>
+</body>
+
+<!-- 
+   /*  get contract basic info:  create time, owner
+       "business data"
+       gas used, gas limit, height
     
+class attributes are denoted in CSS with a “period” ( . ) before the class name, 
+ ID attributes are prefixed with an “octothorpe” ( # ), 
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 
@@ -224,8 +241,9 @@
         })
 
     });
-</script>
+</script> 
       
+
 getAccountBalance
 getAccountContractList
 getAccount
@@ -268,66 +286,7 @@ invokeView
 search
 validateTx
 
--->
+--> 
 
-
-
-</div>
-
-
-
-</body>
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- bottom header for no-cache -->
-<head>
-<meta http-equiv="Cache-Control" content="no-cache" >
-<meta http-equiv="Pragma" content="no-cache" >
-<meta http-equiv="Expires" content=0 >
-</head>
 
 </html>
-<br><br><br>
-
-<!---
-    <a style="font-family: Montserrat, sans-serif; padding-left:0em;  font-weight: 700;
-    font-size:1em; color:#0e0e3f;" href="https://github.com/nmschorr/linkcheck">Source Code for this on Github</a><br></div>
-<a style="font-family: Montserrat, sans-serif; padding-left:0em;
-font-weight: 700; font-size:1em; color:#E86138;" href="http://schorrmedia.com">Back to SchorrMedia</a>
-
-    <input type="text" size="24" name="name">&nbsp;
-
-$("#runquery1").click(function(){
-            var one = $("#3_one").val();
-            var hash = $("#3_hash").val();
-            var password = $("#3_password").val();
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:9999/mail/viewMail",
-                data: JSON.stringify({
-                    "mailAddress" : address,
-                    "password" : password,
-                    "hash" : hash
-                }),
-                success: function(data){
-                    console.log(data)
-                    if(data.success){
-                        $("#3_result").html(formatJson(data.data));
-                    }else{
-                        $("#3_result").text(data.msg)
-                    }
-                },
-                contentType: 'application/json',
-                dataType: "json"
-            });
---->
