@@ -6,7 +6,7 @@ html {
 }
 
 body {
-  max-width: 960px;
+  max-width: 92%;
   margin: 0 auto;
   background: white;
   font-family: 'Montserrat', sans-serif;
@@ -16,7 +16,7 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Montserrat', sans-serif;
   color: slategrey;
-  margin: 10px 0;
+  margin: 5px 0;
 }
 
 a {
@@ -183,7 +183,7 @@ input[type=submit] {
 }
 .box {
   position: static;
-  z-index:1
+  z-index:1;
   height: 30px;
   width: 79%;
   color: white;
@@ -200,7 +200,7 @@ input[type=submit] {
 
 .box2{
   position: static;
-  z-index:1
+  z-index:1;
   height: 30px;
   width: 79%;
   color: white;

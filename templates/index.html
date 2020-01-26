@@ -1,6 +1,6 @@
 <!DOCTYPE html  PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
-<html lang="en-US" prefix="og: http://ogp.me/ns#" style=" background:slategray!important; padding: 1rem;">
+<html lang="en-US" prefix="og: http://ogp.me/ns#" style=" background:slategray!important; padding: 1em;">
 
 <head profile="https://www.w3.org/2005/10/profile">
 <link rel="icon" type="image/png" href="nulslogo.jpg">
@@ -29,23 +29,54 @@
 
 
   <script>
-    // wait for the DOM to be loaded
-    $(function() {
-      // bind 'myForm' and provide a simple callback function
-      $('#myForm').ajaxForm(function() {
-        $( "#answerarea").append( "Here's the result of your request: ");
+      $(document).ready(function() {
+
+        $("#button1").click(function(){
+          var $myin = document.getElementById("#getAllProductIds");
+          var $singleValues = $( "#getAllProductIds" ).val();
+          document.getElementById("mytarget").append( $singleValues);
+        });
+
+        $("#buttont1").click(function(){
+          var $myin = document.getElementById("#getContractList");
+          var $singleValues = $( "#getContractList" ).val();
+          document.getElementById("mytarget").append( $singleValues);
+        });
+        $("#button3").click(function(){
+          var $myin = document.getElementById("#getAllProductIds");
+          var $singleValues = $( "#getAllProductIds" ).val();
+          document.getElementById("mytarget").append( $singleValues);
+        });
+
+        $("#button4").click(function(){
+          var $myin = document.getElementById("#getContractList");
+          var $singleValues = $( "#getContractList" ).val();
+          document.getElementById("mytarget").append( $singleValues);
+        });
+        $("#button5").click(function(){
+          var $myin = document.getElementById("#getAllProductIds");
+          var $singleValues = $( "#getAllProductIds" ).val();
+          document.getElementById("mytarget").append( $singleValues);
+        });
+
+        $("#button6").click(function(){
+          var $myin = document.getElementById("#getContractList");
+          var $singleValues = $( "#getContractList" ).val();
+          document.getElementById("mytarget").append( $singleValues);
+        });
       });
-    });
 
+ 
   </script>
-
+<style>
+.hrstyle {
+  margin-left:7em;
+  margin-right: 7em;
+}
+</style>
 
  </head>
-<style>
 
-
-        
-        </style>
 <title>&emsp;VikingChain</title>
 </head>
 
@@ -54,16 +85,124 @@
 <container style="margin: 2em;">   <!--main area --->
 
 <img src="./vikinglogo.JPG" alt="VikingChain">
+<hr class="hrstyle">
  
-<h2 style="margin-left:4em; align-items: center;color:darkslateblue;text-shadow: .03em  .03em .03em #c6e7d1;">
+<h2 style="margin-left:9em; align-items: center;color:darkslateblue;text-shadow: .03em  .03em .03em #c6e7d1;">
        Nuls Smart Contract Query with Chain Factory</h2>
 
-<p style="margin-left:7em;margin-right:7em;padding:1em;color:#4d4d5a;">
-  Chain Factory is a user framework that allows developers to build a new chain or enhance an existing
-    chain by easily deploying modules selected from a warehouse of modular solutions.</p>
+<p style="margin-left:6em;margin-right:7em;padding:1em;color:#4d4d5a;">
+
+
+VikingChain is the first product review platform that ensures un-biased product review by employing the 
+decentralized benefits of blockchain technology.
+<br>
+VikingChain incentivizes users to write objective reviews by rewarding them with VikingChain Tokens (VKG)
+which can be redeemed for product discounts or traded on exchanges.
 
 
   <!-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< form >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> -->
+  <style>
+  .myinputstyle {
+    font-size: x-small; margin-bottom: 5px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+  }
+  .buttonstyle {
+    background: linear-gradient(to top right, #4b78b3 0%, #29787a 90%);
+    color:rgb(248, 242, 242); text-shadow: .03em  .03em .03em #6fa3a3;  font-size: .9em;
+    font-weight:700; font-family:Montserrat, sans-serif; border-radius:.7em;
+    margin-left:5px;
+    padding-left: 2em;
+    padding-right: 2em;
+  }
+  .pstyle {
+     margin-left:6em
+     ;margin-right:7em;
+     padding:1em;
+     color:#2c2c3a;
+    
+  }
+
+  </style>
+  
+  
+  
+  </style>
+  <div style="margin-left:6em; font-size: small;">
+
+    <span>
+    Enter your Info for All Queries:<br> &emsp;<br> 
+    Account Address: &emsp; <input id="acctaddy" size="39em" class="myinputstyle" ></input><br>
+    Account Password: &emsp;   <input id="acctpasswd" size="39em" class="myinputstyle" ></input><br>
+   </span>   
+ 
+  
+<hr>
+
+  <span>
+    Get Your Account Balance : &emsp; 
+   <button id="button0" class="buttonstyle" >Get Balance</button> <br>
+ </span>     
+ 
+ <br><span>
+  Get Your Contracts :  &emsp; 
+ <button id="button1" class="buttonstyle">Get Contracts</button> <br>
+</span>   
+
+
+
+ <br><span>
+   Get All Product Ids/Categories - Enter  Contract Id : &emsp;
+    <input id="getAllProductIds" size="39em;" class="myinputstyle"> </input>&emsp;
+    <button id="button2" class="buttonstyle">Get ProductIds</button><br>
+  </span>    
+ 
+ <br><span>
+  Get All Your Product Reviews - Enter Contract Id : &emsp;
+   <input id="getAllProductReviews" size="39em;" class="myinputstyle"> </input>&emsp;
+   <button id="button3" class="buttonstyle">Get Reviews</button> <br>
+ </span>    
+ 
+
+ <br><span>
+   Get a Contract Balance - Enter  Contract Id  &emsp;
+   <input id="getContractBalance" size="39em;" class="myinputstyle" ></input>&emsp;
+   <button  id="button4" class="buttonstyle">Get Balance</button><br>
+</span>
+ 
+<br><span>
+  Get Transaction Info - Enter Transaction Id: &emsp;&emsp;
+   <input id="getTransaction" size="39em;" class="myinputstyle"> </input>&emsp;
+   <button  id="button5" class="buttonstyle">Get Transaction</button><br>
+ </span>    
+ <br>
+  
+<hr>
+
+
+
+
+<p style="margin-left:6em;margin-right:7em;padding:1em;color:#4d4d5a;">
+
+
+
+
+
+ <p id="mytarget" class="pstyle"> 
+Query Result Data will land here
+
+</p>
+</div>
+ <br>
+ <br>    <br>    <br>
+  
+</body>
+  
+  
+  
+<!--   
+  
+  
+  
   <div id="myform" style="margin-left:7em; margin-right:4em; padding-left:2em;
   background: linear-gradient(to bottom right, #eaf1f1 0%, #a9bcc5 100%);
   border-radius:.7em;font-family: 'Open Sans', sans-serif;" >
@@ -109,40 +248,10 @@
     
         </span>
         <br> &nbsp;  <br>
-    </form> <!-- ### end myform ###  -->
-</div #myForm> <!-- div myform -->
-
-</container>
-<br>
-  <span style="margin-left:6em">Answers Below:</span>
-
-<p id="answerarea" class="answerarea_class" style="margin-left:6em;">
-</p>  
 
 
 
-
-<!--  ######################################## script  -->
-<script>
-
-$(document).ready(function(){
-
-  $("#makeselection").click(function () {
-       var result = $("#makeselection").val();
-   
-    document.getElementById("answerarea").innerHTML = result;
-
-
-      }
-      );
-    });
-
-
-  </script>
-</body>
-
-<!-- 
-   /*  get contract basic info:  create time, owner
+ get contract basic info:  create time, owner
        "business data"
        gas used, gas limit, height
     
