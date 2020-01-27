@@ -37,7 +37,7 @@
 <container style="margin: 2em;">   
 
   <p style="font-size: 17px; color:blue; font-weight: 700; margin-right:7em; float: right;">
-  Wallet &emsp; Explorer
+    <a href="http://78.47.206.255:18006">Wallet</a> &emsp; <a href="http://78.47.206.255:18005">Explorer</a>
   </p>
 
 <img src="./vikinglogo.JPG" alt="VikingChain">
@@ -157,9 +157,13 @@ which can be redeemed for product discounts or traded on exchanges.
                         "params": PARAMS,  "id": ID_D
                         }),
                       success: function (data) {
+                        let answerjson = JSON.stringify(data, ":", 4)
                         console.log(data);
-                        LANDINGSPOT.append(data.result.result);
-                       }
+                        var mynode = document.createElement("LI");                 // Create a <li> node
+                        var textnode = document.createTextNode(answerjson);         // Create a text node
+                        mynode.appendChild(textnode);                              // Append the text to <li>                        
+                        LANDINGSPOT.appendChild(mynode);     // end of success
+                        }
 					        });  // end ajax
 			      	});
 		    	});
