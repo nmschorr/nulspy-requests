@@ -48,27 +48,20 @@
           document.getElementById("mytarget").append( $singleValues);
         });
 
-        $("#button4").click(function(){
-          var $myin = document.getElementById("#getContractList");
-          var $singleValues = $( "#getContractList" ).val();
-          document.getElementById("mytarget").append( $singleValues);
-        });
-        $("#button5").click(function(){
-          var $myin = document.getElementById("#getAllProductIds");
-          var $singleValues = $( "#getAllProductIds" ).val();
-          document.getElementById("mytarget").append( $singleValues);
-        });
-        $("#submitq").click(function(){
-          var $myin = document.getElementById("#getContractList");
-          var $singleValues = $( "#getContractList" ).val();
-          document.getElementById("mytarget").append( $singleValues);
-        });
-      });
-submitq
-        $("#button6").click(function(){
-          var $myin = document.getElementById("#getContractList");
-          var $singleValues = $( "#getContractList" ).val();
-          document.getElementById("mytarget").append( $singleValues);
+<!--        $("#button4").click(function(){-->
+<!--          var $myin = document.getElementById("#getContractList");-->
+<!--          var $singleValues = $( "#getContractList" ).val();-->
+<!--          document.getElementById("mytarget").append( $singleValues);-->
+<!--        });-->
+<!--        $("#button5").click(function(){-->
+<!--          var $myin = document.getElementById("#getAllProductIds");-->
+<!--          var $singleValues = $( "#getAllProductIds" ).val();-->
+<!--          document.getElementById("mytarget").append( $singleValues);-->
+<!--        });-->
+<!--        $("#button6").click(function(){-->
+<!--          var $myin = document.getElementById("#getContractList");-->
+<!--          var $singleValues = $( "#getContractList" ).val();-->
+<!--          document.getElementById("mytarget").append( $singleValues);-->
         });
       });
   </script>
@@ -207,34 +200,36 @@ Query Result Data will land here. &nbsp;
 
 
 <script>
-      $(document).ready(function() {
+
+        const POSTURL = "http://78.47.206.255:18003";
+        const GCMETHOD = "getContract";
+        const CONTTYPE = "application/json";
+        const CONT_ADDY = 'TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM'
+        const CHAINID = 24442;
+
+        $(document).ready(function() {
             $("#submitq").click(function(){
-
-
-                var POSTURL = "http://78.47.206.255:18003";
-                var methodd = "getContract";
-                var params = [24442, 'TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM'];
-                var idd =  900032;
-
+                let METHOD_D = GCMETHOD;
+                let PARAMS = [CHAINID, CONT_ADDY];
+                let ID_D =  900032;
                 $.ajax({
                     type: "POST",
                     url: POSTURL,
-                    contentType: 'application/json',
+                    contentType: CONTTYPE,
                     dataType: "json",
                     data: JSON.stringify({
                         "jsonrpc": "2.0",
-                        "method": methodd,
-                        "params": params,
-                         "id": idd
+                        "method": METHOD_D,
+                        "params": PARAMS,
+                         "id": ID_D
                         }),
                     success: function (data) {
                         console.log(data)
-                        if (data.success) {
-                            thedata = $("#mytarget").text(data.data);
-                            var $singleValues = $( "#mytarget" ).val();
-                            document.getElementById("landingspot").append( $singleValues);
+                        if (data.success)
+                        {   let de = document.getElementById("landingspot")
+                            de.append( data.data);
                         } else {
-                            $("#1_res").text(data.msg)
+                            $("#mytarget").text("query didn't work")
                             }
 						}
 
@@ -245,8 +240,7 @@ Query Result Data will land here. &nbsp;
 </script>
 </html>
 
-          var $singleValues = $( "#getContractList" ).val();
-          document.getElementById("mytarget").append( $singleValues);
+
 
 <!--#  {contractAddress: "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM", creater: "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7", createTxHash: "79bb093e7400310627c7fc015392d9df5f0e5b0c6f305c6478dd83c47a3eb373", alias: "nancydemo", blockHeight: 312807, …}-->
 <!--__prot-->
