@@ -9,6 +9,10 @@
 # params is first list
 # 2nd list is items_list or last_list
 
+
+#json is:  {'jsonrpc': '2.0', 'method': 'getContract', 'params': [24442, 'TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM'], 'id': 900032}
+
+
 import requests
 import random
 import json
