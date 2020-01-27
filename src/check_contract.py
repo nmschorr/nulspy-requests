@@ -48,6 +48,9 @@ class CheckContract(object):
         elif method_type == "getContract":
             param_list = [self.chainId] + [self.contract_id] + p_list
 
+        elif p_list[2] == "getReviews":
+            param_list = p_list
+
         else:
             param_list = [self.chainId] + [self.from_address] + p_list
 
@@ -89,7 +92,9 @@ class CheckContract(object):
         request_type = "getReviews"
         weird_str = "(String productId) return Ljava/util/List;"
         last_list = ["baseball"]  # 4 items
-        params_list = [request_type, weird_str, last_list]  # 4 items
+        params_list = [self.chainId, self.contract_id, request_type,
+                       weird_str, last_list]  # 4
+        # items
         self.doit(method_type, params_list)
 
     # json is: {24442: 'TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM', 'method': 'invokeView',
@@ -141,8 +146,6 @@ if __name__ == "__main__":
     c.req_get_writer()
 
     print("done")
-
-
 
 
 

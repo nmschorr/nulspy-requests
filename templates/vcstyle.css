@@ -38,6 +38,10 @@
     color: #2c2c3a;
   }
 
+  .pstyle2 {
+    margin-left:3em;margin-right: 4em;padding: .5em;  color: #2c2c3a; 
+  }
+
 html {
   font-family: 'Montserrat', sans-serif;
   background: #c9e0df;
