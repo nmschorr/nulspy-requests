@@ -1,7 +1,6 @@
 #!/usr/bin/python3.7
 
-# curl -s -X POST -H -v 'Content-Type: application/json' --data '{"jsonrpc":"2.0",
-# "method":"getChainInfo","params":[], "id":1234}' http://78.47.206.255:18003
+# curl -s -X POST -H -v 'Content-Type: application/json' --data '{"jsonrpc":"2.0","method":"getChainInfo","params":[], "id":1234}' http://78.47.206.255:18003
 
 # data:{"jsonrpc":"2.0","method":"invokeView","params":[24442,
 # "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM","getRe iews","(String productId) return Ljava/util/List;",["baseballcap"]],"id":904}
@@ -28,6 +27,10 @@ class CheckContract(object):
         self.jsonrpc_d = {"jsonrpc": "2.0"}
         #self.id_dict: dict = {"id": rand_id}
         self.id_dict: dict = {"id": r_id}
+        user = "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7"
+
+        passwd = "nuls123456"
+
 
         chain_id: str = 24442
         self.chainId = chain_id
@@ -119,31 +122,34 @@ class CheckContract(object):
     def write_review(self):
         # cmds.log:POST , path : ,data:{"jsonrpc":"2.0","method":"imputedContractCallGas",
         # "params":[24442,"TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7",200000000,"TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM",
-        # "writeReview","(String productId, String reviewComments) return LReviewContract$Review;",["baseball","nice baseball"]],"id":275}
+        #"writeReview","(String productId, String reviewComments) return LReviewContract$Review;",
+        # ["baseball","nice baseball"]],"id":275}
 
         # write_review is different than the ones above
         sender = self.from_address
         ch_id = self.chainId
         contract_addy = "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM"
+        method = "imputedContractCallGas"
         method_dict = "writeReview"
-        args = '[{"productId": "baseball"}, {"reviewComments": "happiness"}]"'
+        params = [{"productId": "baseballshirt"}, {"reviewComments": "happiness"}]
 
         ret_val = "LReviewContract$Review"
 
-        value = '000545454'  # set in stone
+        value = '700700000'  # set in stone
 
-        params_list = [ch_id, sender, value, contract_addy, method_dict, ret_val, args]
+        params_list = [ch_id, sender, value, contract_addy, method_dict, ret_val, params]
         self.doit(self.write_rev_type, params_list)
 
 
 if __name__ == "__main__":
     c = CheckContract()
-    c.req_get_all_prod_ids()
-    c.req_get_reviews()  ## input contract id, pick product
-    c.req_get_contract()
-    c.req_get_chain_info()
-    c.write_review()
-    c.req_get_writer()
+    c.req_get_chain_info()   # easy
+
+    #c.req_get_all_prod_ids()
+    #c.req_get_reviews()  ## input contract id, pick product
+    # c.req_get_contract()
+    #c.write_review()
+    # c.req_get_writer()
 
     print("done")
 
@@ -295,3 +301,14 @@ The response is:{
    }
 }
 '''
+
+#
+#
+# curl -H "Content-Type: application/json" -d '{"jsonrpc": "2.0", "method": "imputedContractCallGas","params": [ 24442,"TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7", "545457","TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM","writeReview", "LReviewContract$Review", [{"productId": "baseball"}, {"reviewComments": "happiness"}] ], "id": 902755}' -X POST http://78.47.206.255:18003
+#
+# curl -H "Content-Type: application/json" -d '{"jsonrpc": "2.0", "method": "imputedContractCallGas","params": [ 24442,"TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7", "545457","TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM","writeReview", "LReviewContract$Review", [{"productId": "baseball"}, {"reviewComments": "happiness"}] ], "id": 902755}' -X POST http://78.47.206.255:18003
+#
+# curl -u "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7":"nuls123456" -H "Content-Type": "application/json" -d '{; "jsonrpc": "2.0",; "method": "imputedContractCallGas",; "params": [; 24442,; "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7",; "545457",; "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM",; "writeReview",; "LReviewContract$Review",; "[{"productId": "baseball"}, {"reviewComments": "happiness"}]" ],; "id": 902755}' -X POST http://78.47.206.255:18003
+#
+# curl -H -u "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7":"nuls123456" "Content-Type": "application/json" -d '{; "jsonrpc": "2.0",; "method": "imputedContractCallGas",; "params": [; 24442,; "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7",; "545457",; "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM",; "writeReview",; "LReviewContract$Review",; "[{"productId": "baseball"}, {"reviewComments": "happiness"}]" ],; "id": 902755}' -X POST http://78.47.206.255:18003
+#
