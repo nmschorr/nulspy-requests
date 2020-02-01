@@ -28,11 +28,11 @@ class CheckContract(object):
         #self.id_dict: dict = {"id": rand_id}
         self.id_dict: dict = {"id": r_id}
         self.from_address_user = "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7"
-        self.passwd = "kathy123"
-        self.chainId = 24442
+        self.passwd = "nuls123456"
+        self.chainId = 4810
         self.contract_address = "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM"
         self.emp_list = []
-        self.auth_d: dict = { "password" : "kathy123" }
+        self.auth_d: dict = {"password" : "nuls123456"}
 
     def doit(self, method_outer, p_list, method_inner = "empty"):
 
