@@ -11,6 +11,12 @@
 
 #json is:  {'jsonrpc': '2.0', 'method': 'getContract', 'params': [24442, 'TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM'], 'id': 900032}
 
+#works:
+# curl -s -X POST -H 'Content-Type: application/json' --data '{"jsonrpc": "2.0", "method": "getAccountLedgerList", "params": [4810, "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"], "id": 900008}' http://116.202.157.151:18002
+# RPC_METHOD_INVOKER_MAP RPC_METHOD_INVOKER_MAP
+
+
+
 
 import requests
 import random
@@ -24,16 +30,16 @@ class CheckContract(object):
         KN = 1
 
         if KN:
-            self.url_post  = "http://78.47.206.255:18003"
+            self.url_post  = "http://78.47.206.255:18006"
             self.from_address_user = "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7"
             self.contract_address = "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM"
             self.chainId = 24442
 
         else:
-            self.url_post = "http://116.202.157.151:18003"  # jsonrpc dir?
+            self.url_post = "http://116.202.157.151:18005"  # jsonrpc dir?
             #self.url_post = "http://116.202.157.151:18003/jsonrpc"  # jsonrpc dir?
             self.from_address_user = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"
-            self.contract_address = "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM"
+            self.contract_address = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"  #TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW
             self.chainId = 4810
 
         self.myhead = dict([("Content-Type", "application/json;charset=UTF-8",)])
@@ -43,12 +49,9 @@ class CheckContract(object):
         self.id_dict: dict = {"id": r_id}
         self.passwd = "nuls123456"
         self.emp_list = []
-        #self.auth_d: dict = {"password": self.passwd }
 
-    def doit(self, method_outer, p_list, method_inner = "empty"):
+    def doit(self, method_outer, p_list):
 
-        user = self.from_address_user
-        pw = self.passwd
         url = self.url_post
         head = self.myhead
         # authtup = (user, pw)
@@ -77,8 +80,8 @@ class CheckContract(object):
         print(the_request.headers)
         print(the_request.url)
         print("stat: ", the_answer)
-        print("\n ---------> The response is: " + the_answer.text + " --------- \n")
-        print("\n -------------- \n")
+        print("\n  ANSWER to query ", method_outer, " is: ")
+        print(" ---------> The response is: " + the_answer.text + " --------- \n------------")
 
     def req_get_chain_info(self):  # uses invoke_view
         method_outer = "getChainInfo"
@@ -168,14 +171,28 @@ class CheckContract(object):
         p = [self.contract_address, item, rev, self.from_address_user]
         self.doit(self.chainId, p)
 
-    def getTheBestBlock(self):
-        method_outer = "getBestBlock"
-        p = [self.chainId]
-        self.doit(method_outer, p)
 
+    def getTheBestBlock(self):
+        method_outer = "ListAPI"
+        p = []
+        self.doit(p)
+
+    # getAccountList
     def getAccountLedgerList(self):
         method_outer = "getAccountLedgerList"
         p = [self.chainId, self.contract_address]
+        self.doit(method_outer, p)
+
+    def do_getAccount(self):
+        method_outer = "getAddressByPriKey"
+        pk = "92dc99194317649ce165e5a8185fc05a751b293c1faf787636adba70e06804c6d5432e5ecc12096c5a3b33a0d6812896"
+        p = [pk]
+        self.doit(method_outer, p)
+
+    def do_getAddressByPriKey(self):
+        method_outer = "getAddressByPriKey"
+        pk = "92dc99194317649ce165e5a8185fc05a751b293c1faf787636adba70e06804c6d5432e5ecc12096c5a3b33a0d6812896"
+        p = [pk]
         self.doit(method_outer, p)
 
 if __name__ == "__main__":
@@ -186,8 +203,13 @@ if __name__ == "__main__":
     #c.req_get_reviews()  ## input contract id, pick product
     c.req_get_contract()
     #c.write_review()
-    c.getTheBestBlock()
+    c.getAccountLedgerList()
+    c.do_getAddressByPriKey()
 
+
+# @Rpcmethod
+# #Rpcmethod
+ # curl -H "Content-Type: application/json" -d '{"jsonrpc": "2.0", "method":"ListAPI", "id": 1234}
     print("done")
 
 # "name": "WriteReviewEvent",
