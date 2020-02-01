@@ -20,19 +20,30 @@ from requests.auth import HTTPBasicAuth
 class CheckContract(object):
 
     def __init__(self):
-        self.url_post = "http://78.47.206.255:18003"
-        self.myhead = dict([("Content-Type", "application/json",)])
+
+        KN = 1
+
+        if KN:
+            self.url_post  = "http://78.47.206.255:18003"
+            self.from_address_user = "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7"
+            self.contract_address = "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM"
+            self.chainId = 24442
+
+        else:
+            self.url_post = "http://116.202.157.151:18003"  # jsonrpc dir?
+            #self.url_post = "http://116.202.157.151:18003/jsonrpc"  # jsonrpc dir?
+            self.from_address_user = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"
+            self.contract_address = "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM"
+            self.chainId = 4810
+
+        self.myhead = dict([("Content-Type", "application/json;charset=UTF-8",)])
         rand_id = random.randrange(1, 99)
         r_id = 900000 + rand_id
         self.jsonrpc_d = {"jsonrpc": "2.0"}
-        #self.id_dict: dict = {"id": rand_id}
         self.id_dict: dict = {"id": r_id}
-        self.from_address_user = "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7"
         self.passwd = "nuls123456"
-        self.chainId = 4810
-        self.contract_address = "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM"
         self.emp_list = []
-        self.auth_d: dict = {"password" : "nuls123456"}
+        #self.auth_d: dict = {"password": self.passwd }
 
     def doit(self, method_outer, p_list, method_inner = "empty"):
 
@@ -40,29 +51,34 @@ class CheckContract(object):
         pw = self.passwd
         url = self.url_post
         head = self.myhead
-        authtup = (user, pw)
-        authd = self.auth_d
+        # authtup = (user, pw)
+        #authd = self.auth_d
 
-        req = requests.Request('POST', url, headers=head, auth=authtup)
+        req = requests.Request('POST', url, headers=head)
 
         method_type_d = {"method": method_outer}
         self.jsonrpc_d.update(method_type_d)
 
         param_d: dict = {"params": p_list}
         param_d.update(self.id_dict)
-        param_d.update(authd)
+
+        #param_d.update(authd)
 
         self.jsonrpc_d.update(param_d)
         req.json = self.jsonrpc_d
 
         print("json is: ", req.json)
         the_request = req.prepare()
-        print("the_req is: ", the_request)
+        print("the_req is: ", str(the_request.body))
 
         session = requests.Session()
+        x = session.params
         the_answer = session.send(the_request)
+        print(the_request.headers)
+        print(the_request.url)
         print("stat: ", the_answer)
         print("\n ---------> The response is: " + the_answer.text + " --------- \n")
+        print("\n -------------- \n")
 
     def req_get_chain_info(self):  # uses invoke_view
         method_outer = "getChainInfo"
@@ -152,15 +168,25 @@ class CheckContract(object):
         p = [self.contract_address, item, rev, self.from_address_user]
         self.doit(self.chainId, p)
 
+    def getTheBestBlock(self):
+        method_outer = "getBestBlock"
+        p = [self.chainId]
+        self.doit(method_outer, p)
+
+    def getAccountLedgerList(self):
+        method_outer = "getAccountLedgerList"
+        p = [self.chainId, self.contract_address]
+        self.doit(method_outer, p)
+
 if __name__ == "__main__":
     c = CheckContract()
     c.req_get_chain_info()   # easy
 
-    c.req_get_all_prod_ids()
-    c.req_get_reviews()  ## input contract id, pick product
-    #c.req_get_contract()
+    #c.req_get_all_prod_ids()
+    #c.req_get_reviews()  ## input contract id, pick product
+    c.req_get_contract()
     #c.write_review()
-    c.req_do_writer()
+    c.getTheBestBlock()
 
     print("done")
 
