@@ -27,24 +27,22 @@ class CheckContract(object):
 
     def __init__(self):
 
-        WEST = 0
-        KN = 0
-        BABY = 1
+        which_server = 3
 
-        if KN == 1:                      # Kathy
+        if which_server == 1:                      # Kathy
             self.url_post  = "http://78.47.206.255:18003/jsonrpc"
             self.from_address_user = "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7"
             self.contract_address = "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM"
             self.chainId = 24442
 
-        elif WEST == 1:                    # Berzeck Westteam
+        elif which_server == 2:                    # Berzeck Westteam
             self.url_post = "http://116.202.157.151:18003"  # jsonrpc dir?
             #self.url_post = "http://116.202.157.151:18003/jsonrpc"  # jsonrpc dir?
             self.from_address_user = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"
             self.contract_address = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"  #TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW
             self.chainId = 4810
 
-        elif BABY:                                   # home Baby
+        elif which_server == 3:                                # home Baby
             self.url_post = "http://0.0.0.0:18003"  # jsonrpc dir?
             self.from_address_user = "tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p"
             # self.contract_address = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"  #tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p
@@ -222,20 +220,31 @@ class CheckContract(object):
         p = []
         self.doit(method_outer, p)
 
+    def getaccounts(self):
+        method_outer = "getAccounts"
+        p = [2]
+        self.doit(method_outer, p)
+
 if __name__ == "__main__":
+    from time import sleep
     c = CheckContract()
     c.req_get_chain_info()   # easy
-
+    sleep(2)
     #c.req_get_all_prod_ids()
     #c.req_get_reviews()  ## input contract id, pick product
     # c.req_get_contract()
-    #c.write_review()
-    #c.getAccountLedgerList()
-    # c.do_getAddressByPriKey()
-    #c.getTheBestBlock()
-    c.getAccount1()
+    # c.write_review()
+    # c.getAccountLedgerList()
+    sleep(45)
+    c.do_getAddressByPriKey()
     c.getTheBestBlock()
+    sleep(20)
+    c.getAccount1()
+    sleep(20)
+    c.getTheBestBlock()
+    sleep(20)
     # c.getapi()
+    c.getaccounts()
 
 
 #  curl -s -X GET -H 'Content-Type: application/json' --data
