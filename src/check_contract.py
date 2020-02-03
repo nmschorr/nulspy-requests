@@ -27,20 +27,29 @@ class CheckContract(object):
 
     def __init__(self):
 
-        KN = 1
+        WEST = 0
+        KN = 0
+        BABY = 1
 
-        if KN:
-            self.url_post  = "http://78.47.206.255:18006"
+        if KN == 1:                      # Kathy
+            self.url_post  = "http://78.47.206.255:18003/jsonrpc"
             self.from_address_user = "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7"
             self.contract_address = "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM"
             self.chainId = 24442
 
-        else:
-            self.url_post = "http://116.202.157.151:18005"  # jsonrpc dir?
+        elif WEST == 1:                    # Berzeck Westteam
+            self.url_post = "http://116.202.157.151:18003"  # jsonrpc dir?
             #self.url_post = "http://116.202.157.151:18003/jsonrpc"  # jsonrpc dir?
             self.from_address_user = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"
             self.contract_address = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"  #TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW
             self.chainId = 4810
+
+        elif BABY:                                   # home Baby
+            self.url_post = "http://0.0.0.0:18003"  # jsonrpc dir?
+            self.from_address_user = "tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p"
+            # self.contract_address = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"  #tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p
+            self.chainId = 2
+
 
         self.myhead = dict([("Content-Type", "application/json;charset=UTF-8",)])
         rand_id = random.randrange(1, 99)
@@ -70,6 +79,7 @@ class CheckContract(object):
         self.jsonrpc_d.update(param_d)
         req.json = self.jsonrpc_d
 
+        print("  RUNNING --*--*--* ", str.upper(method_outer), " --*--*--* ")
         print("json is: ", req.json)
         the_request = req.prepare()
         print("the_req is: ", str(the_request.body))
@@ -80,8 +90,8 @@ class CheckContract(object):
         print(the_request.headers)
         print(the_request.url)
         print("stat: ", the_answer)
-        print("\n  ANSWER to query ", method_outer, " is: ")
-        print(" ---------> The response is: " + the_answer.text + " --------- \n------------")
+        print("  ANSWER to query ", method_outer, " is: ")
+        print(" ---------> The response is: " + the_answer.text + " ---------> \n\n")
 
     def req_get_chain_info(self):  # uses invoke_view
         method_outer = "getChainInfo"
@@ -173,9 +183,16 @@ class CheckContract(object):
 
 
     def getTheBestBlock(self):
-        method_outer = "ListAPI"
+        method_outer = "getBestBlockHeader"
+        p = [ self.chainId ]
+        self.doit(method_outer, p)
+
+    def getInfo(self):
+        method_outer = "info"
         p = []
-        self.doit(p)
+        self.doit(method_outer, p)
+
+
 
     # getAccountList
     def getAccountLedgerList(self):
@@ -189,10 +206,20 @@ class CheckContract(object):
         p = [pk]
         self.doit(method_outer, p)
 
+    def getAccount1(self):
+        method_outer = "getAccount"
+        p = [2, "tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p"]  # Baby
+        self.doit(method_outer, p)
+
     def do_getAddressByPriKey(self):
         method_outer = "getAddressByPriKey"
         pk = "92dc99194317649ce165e5a8185fc05a751b293c1faf787636adba70e06804c6d5432e5ecc12096c5a3b33a0d6812896"
         p = [pk]
+        self.doit(method_outer, p)
+
+    def getapi(self):
+        method_outer = "getDeclaredMethods"  # requestMethods   getMethods  callCommands  getDeclaredMethods
+        p = []
         self.doit(method_outer, p)
 
 if __name__ == "__main__":
@@ -201,12 +228,18 @@ if __name__ == "__main__":
 
     #c.req_get_all_prod_ids()
     #c.req_get_reviews()  ## input contract id, pick product
-    c.req_get_contract()
+    # c.req_get_contract()
     #c.write_review()
-    c.getAccountLedgerList()
-    c.do_getAddressByPriKey()
+    #c.getAccountLedgerList()
+    # c.do_getAddressByPriKey()
+    #c.getTheBestBlock()
+    c.getAccount1()
+    c.getTheBestBlock()
+    # c.getapi()
 
 
+#  curl -s -X GET -H 'Content-Type: application/json' --data
+# http://0.0.0.0:18003/api/account/address/validate  {"chainId": 0,"address": "tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p"}
 # @Rpcmethod
 # #Rpcmethod
  # curl -H "Content-Type: application/json" -d '{"jsonrpc": "2.0", "method":"ListAPI", "id": 1234}
