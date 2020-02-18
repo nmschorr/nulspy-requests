@@ -43,7 +43,7 @@ class CheckContract(object):
             self.chainId = 4810
 
         elif which_server == 3:                                # home Baby
-            self.url_post = "http://0.0.0.0:18003"  # jsonrpc dir?
+            self.url_post = "http://0.0.0.0:18004/jsonrpc"  # jsonrpc dir?
             self.from_address_user = "tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p"
             # self.contract_address = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"  #tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p
             self.chainId = 2
@@ -229,22 +229,22 @@ if __name__ == "__main__":
     from time import sleep
     c = CheckContract()
     c.req_get_chain_info()   # easy
-    sleep(2)
-    #c.req_get_all_prod_ids()
-    #c.req_get_reviews()  ## input contract id, pick product
+    sleep(1)
+    # c.req_get_all_prod_ids()
+    # c.req_get_reviews()  ## input contract id, pick product
     # c.req_get_contract()
     # c.write_review()
     # c.getAccountLedgerList()
-    sleep(45)
+    sleep(1)
     c.do_getAddressByPriKey()
     c.getTheBestBlock()
-    sleep(20)
+    sleep(1)
     c.getAccount1()
-    sleep(20)
-    c.getTheBestBlock()
-    sleep(20)
-    # c.getapi()
+    sleep(1)
+    sleep(1)
+    c.getapi()
     c.getaccounts()
+    c.do_getAccount
 
 
 #  curl -s -X GET -H 'Content-Type: application/json' --data
