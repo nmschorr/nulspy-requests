@@ -7,7 +7,7 @@ import random
 import json
 from requests.auth import HTTPBasicAuth
 
-class GetGas(object):
+class CallGas(object):
 
     def __init__(self):
         pass
@@ -25,6 +25,7 @@ class GetGas(object):
         self.pw = 'nuls123456'
         self.contract_desc = "(String productId, String reviewComments) return LReviewContract$Review;"
         self.contract_name = "writeReview"
+        self.args = [["swimsuits"], ["too large"]]
 
     def send_request(self, req):
         the_request = req.prepare()
@@ -48,17 +49,19 @@ class GetGas(object):
 
     def call_gas(self):
         methodk = "imputedContractCallGas"
-        args = [["swimsuits"], ["too large"]]
         p_list = [self.chainId, self.senderk, self.price, self.contractAddressk, self.contract_name,
-                  self.contract_desc, args]
+                  self.contract_desc, self.args]
         request = self.setup_top(methodk, p_list)
         resp1 = self.send_request(request)
-        print(resp1)
+        for k, v in resp1.items():
+            finalres = v
+        print(finalres)
+        return finalres
 
-if __name__ == "__main__":
-    c = GetGas()
-    g = c.call_gas()
-    print()
+# if __name__ == "__main__":
+#     c = CallGas()
+#     g = c.call_gas()
+#     print()
 
 # returned {'gasLimit': 11857}
 

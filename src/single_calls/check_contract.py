@@ -13,10 +13,6 @@
 
 #works:
 # curl -s -X POST -H 'Content-Type: application/json' --data '{"jsonrpc": "2.0", "method": "getAccountLedgerList", "params": [4810, "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"], "id": 900008}' http://116.202.157.151:18002
-# RPC_METHOD_INVOKER_MAP RPC_METHOD_INVOKER_MAP
-
-
-
 
 import requests
 import random

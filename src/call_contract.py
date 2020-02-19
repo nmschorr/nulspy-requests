@@ -1,14 +1,12 @@
 #!/usr/bin/python3.7
 
-
-
 import requests
-import random
 import json
-from requests.auth import HTTPBasicAuth
-from src.getgas import GetGas
+import src.create_gas
+import src.call_gas
 
-class CheckContract(object):
+
+class CallContract(object):
 
     def __init__(self):
         pass
@@ -18,7 +16,7 @@ class CheckContract(object):
         self.contract_addressk = "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM"
         self.senderk = "TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z"
         self.chainId = 24442
-        self.value = 0
+        self.price = 25
         self.url = "http://78.47.206.255:18004/jsonrpc"
         self.my_id = 99999
         self.head = dict([("Content-Type", "application/json;charset=UTF-8",)])
@@ -30,6 +28,8 @@ class CheckContract(object):
         self.pw = 'nuls123456'
         self.contract_desc = "(String productId, String reviewComments) return LReviewContract$Review;"
         self.gasobj = None
+        self.args = [["swimsuits"], ["too large"]]
+        self.prelim_d = dict()
 
     def send_request(self, req):
         the_request = req.prepare()
@@ -60,47 +60,44 @@ class CheckContract(object):
         # resp = resp1["resp1"]
         print("resp: ", resp1)
 
+    def prelim(self):
+        gobj = src.call_gas.CallGas()
+        cgas_obj = src.create_gas.CreateGas()
+        cgas = cgas_obj.create_gas()
+        dd = ("cgas", cgas,)
+        self.prelim_d.update([dd])
+
+        glimit = gobj.call_gas()
+        gg = ("gas_limit", glimit,)
+        self.prelim_d.update([gg])
+
+        for k, v in self.prelim_d.items():
+            print(k, str(v))
+
 
     def call_contract(self):
+        self.prelim()
+        cgas = self.prelim_d.get("cgas")
+        gas_limit = self.prelim_d["gas_limit"]
         methodk = "contractCall"
-        contract_methodname = "writeReview"
-
-        contract_methoddes = "write contract from python"
         method_type_d = {"method": methodk}
+        contract_methodname = "writeReview"
         req = requests.Request('POST', self.url, headers=self.head)
         req.json = {"jsonrpc": "2.0"}
         req.json.update(method_type_d)
         id_dict: dict = {"id": '9999'}
-        value = 0
-        gas_limit = 1
-        price = 25
-        args = ["yes", "no"]
         remark = "remark-jsonrpc-call"
 
-                        # "contractCall": {
-                        #         "request": {"jsonrpc": "2.0", "method": "contractCall",
-                        #                     "params": [2, "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
-                        #                                "nuls123456", 0, 200000, 30,
-                        #                                "tNULSeBaMx2zjgThursB6k9XsST7VvZmr2vB3J", "transfer",
-                        #                                null,
-                        #                                ["tNULSeBaMtkzQ1tH8JWBGZDCmRHCmySevE4frM", "4000"],
-                        #                                "remark-jsonrpc-call"], "id": 1234},
+        p_list = [self.chainId, self.senderk, self.pw, gas_limit, cgas, self.price, self.contract_addressk,
+                  contract_methodname, self.contract_desc ,self.args, remark]
 
-        p_list = [self.chainId, self.senderk, self.pw, 0, 200000, 30, self.contract_addressk,
-                  contract_methodname, self.contract_desc , [args], remark]
-        param_d: dict = {"params": p_list}
-        param_d.update(id_dict)
-        req.json.update(param_d)
-        the_request = req.prepare()
+        request = self.setup_top(methodk,p_list)
+        resp1 = self.send_request(request)
+        # cgas = resp1["gasLimit"]  ## don't know why it says this-- ?
+        print(resp1)
+        # return cgas
 
-        session = requests.Session()
-        x = session.params
-        response = session.send(the_request)
-        print(response.content)
-        data_d = json.loads(response.content)
-        thepair = data_d["result"]
-        gas_limit = thepair["gasLimit"]
-        print("gas limit: ", gas_limit)
-#
-
-
+if __name__ == "__main__":
+    c = CallContract()
+    g = c.call_contract()
+    print(g)
