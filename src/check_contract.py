@@ -30,21 +30,23 @@ class CheckContract(object):
         which_server = 3
 
         if which_server == 1:                      # Kathy
-            self.url_post  = "http://78.47.206.255:18003/jsonrpc"
-            self.from_address_user = "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7"
+            self.url_post  = "http://78.47.206.255:18004/jsonrpc"
+            self.owner = "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7"
             self.contract_address = "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM"
+            self.contract_desc =  "(String productId, String reviewComments) return LReviewContract$Review;"
             self.chainId = 24442
+            self.senderk = "TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z"
 
         elif which_server == 2:                    # Berzeck Westteam
             self.url_post = "http://116.202.157.151:18003"  # jsonrpc dir?
             #self.url_post = "http://116.202.157.151:18003/jsonrpc"  # jsonrpc dir?
-            self.from_address_user = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"
+            self.owner = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"
             self.contract_address = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"  #TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW
             self.chainId = 4810
 
         elif which_server == 3:                                # home Baby
             self.url_post = "http://0.0.0.0:18004/jsonrpc"  # jsonrpc dir?
-            self.from_address_user = "tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p"
+            self.owner = "tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p"
             # self.contract_address = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"  #tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p
             self.chainId = 2
 
@@ -56,6 +58,17 @@ class CheckContract(object):
         self.id_dict: dict = {"id": r_id}
         self.passwd = "nuls123456"
         self.emp_list = []
+
+
+#               "(String productId, String reviewComments) return LReviewContract$Review;"
+# #               "(String productId, String reviewComments) return LReviewContract$Review;"
+#     "TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z"
+#     sender
+#     ["TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z"]
+#     sender
+#     5
+#     a020dc9c5110453c4b33608c65c26d6560da007078bb21e94a1022c5333dda8
+
 
     def doit(self, method_outer, p_list):
 
@@ -161,7 +174,7 @@ class CheckContract(object):
         value = '000545454'  # set in stone
         # value = '700700000'  # set in stone
 
-        params_list = [self.chainId, self.from_address_user, 52400000000, self.contract_address, method_inner,
+        params_list = [self.chainId, self.owner, 52400000000, self.contract_address, method_inner,
                        ret_val, p]
         # params_list = [ch_id, sender, value, contract_addy, method_dict, ret_val, params]
         self.doit(method_outer, params_list)
@@ -176,7 +189,7 @@ class CheckContract(object):
         method_outer = "WriteReviewEvent"
         rev = "they were pretty but and too yellow"
         item = "baseballsocks"
-        p = [self.contract_address, item, rev, self.from_address_user]
+        p = [self.contract_address, item, rev, self.owner]
         self.doit(self.chainId, p)
 
 
