@@ -19,7 +19,7 @@ class CallGas(object):
         self.url = "http://78.47.206.255:18004/jsonrpc"
         self.my_id = 99999
         self.head = dict([("Content-Type", "application/json;charset=UTF-8",)])
-        self.price = 25
+        self.price = None
         self.commentk = "a comment"
         self.id='99999'
         self.pw = 'nuls123456'
@@ -47,7 +47,8 @@ class CallGas(object):
         reqr.json.update(param_dt)
         return reqr
 
-    def call_gas(self):
+    def call_gas(self, price):
+        self.price = price
         methodk = "imputedContractCallGas"
         p_list = [self.chainId, self.senderk, self.price, self.contractAddressk, self.contract_name,
                   self.contract_desc, self.args]

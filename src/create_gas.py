@@ -16,11 +16,10 @@ class CreateGas(object):
         self.senderk = "TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z"
         self.contractAddressk = "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM"
         self.chainId = 24442
-        self.value = 0
+        self.price = 0
         self.url = "http://78.47.206.255:18004/jsonrpc"
         self.my_id = 99999
         self.head = dict([("Content-Type", "application/json;charset=UTF-8",)])
-        self.value = 25
         self.req = requests.Request('POST', self.url, headers=self.head)
         self.req.json = {"jsonrpc": "2.0"}
         self.id_dict: dict = {"id": '9999'}

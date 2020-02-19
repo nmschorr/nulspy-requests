@@ -16,7 +16,7 @@ class CallContract(object):
         self.contract_addressk = "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM"
         self.senderk = "TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z"
         self.chainId = 24442
-        self.price = 25
+        self.price = '74600000'
         self.url = "http://78.47.206.255:18004/jsonrpc"
         self.my_id = 99999
         self.head = dict([("Content-Type", "application/json;charset=UTF-8",)])
@@ -28,12 +28,13 @@ class CallContract(object):
         self.pw = 'nuls123456'
         self.contract_desc = "(String productId, String reviewComments) return LReviewContract$Review;"
         self.gasobj = None
-        self.args = [["swimsuits"], ["too large"]]
+        self.args = ["swimsuits", "too large"]
         self.prelim_d = dict()
 
     def send_request(self, req):
         the_request = req.prepare()
         session = requests.Session()
+        print("the request: ", str(the_request.body))
         response = session.send(the_request)
         print(response.content)
         data_d = json.loads(response.content)
@@ -58,7 +59,7 @@ class CallContract(object):
         request = self.setup_top(methodk, p_list)
         resp1 = self.send_request(request)
         # resp = resp1["resp1"]
-        print("resp: ", resp1)
+        print("balance: ", resp1)
 
     def prelim(self):
         gobj = src.call_gas.CallGas()
@@ -67,37 +68,157 @@ class CallContract(object):
         dd = ("cgas", cgas,)
         self.prelim_d.update([dd])
 
-        glimit = gobj.call_gas()
+        glimit = gobj.call_gas(self.price)
         gg = ("gas_limit", glimit,)
         self.prelim_d.update([gg])
 
         for k, v in self.prelim_d.items():
             print(k, str(v))
 
-
     def call_contract(self):
         self.prelim()
-        cgas = self.prelim_d.get("cgas")
+        cgas = self.prelim_d.get("cgas")  # "value"
         gas_limit = self.prelim_d["gas_limit"]
         methodk = "contractCall"
-        method_type_d = {"method": methodk}
         contract_methodname = "writeReview"
-        req = requests.Request('POST', self.url, headers=self.head)
-        req.json = {"jsonrpc": "2.0"}
-        req.json.update(method_type_d)
-        id_dict: dict = {"id": '9999'}
-        remark = "remark-jsonrpc-call"
-
-        p_list = [self.chainId, self.senderk, self.pw, gas_limit, cgas, self.price, self.contract_addressk,
-                  contract_methodname, self.contract_desc ,self.args, remark]
-
+        p_list = [self.chainId, self.senderk, self.pw, cgas, gas_limit, self.price, self.contract_addressk,
+                  contract_methodname, self.contract_desc ,self.args, "my remarks"]
         request = self.setup_top(methodk,p_list)
         resp1 = self.send_request(request)
-        # cgas = resp1["gasLimit"]  ## don't know why it says this-- ?
         print(resp1)
-        # return cgas
+
+    def call_invoke(self):  # doesn't work
+        methodk = "invokeView"
+        contract_methodname = "writeReview"
+        p_list = [self.chainId, self.contract_addressk, contract_methodname,  self.contract_desc,
+                  self.args]
+        request = self.setup_top(methodk, p_list)
+        resp1 = self.send_request(request)
+        return resp1
+
 
 if __name__ == "__main__":
     c = CallContract()
+    c.get_account_balance()
     g = c.call_contract()
     print(g)
+
+    # 2020 - 02 - 19
+    # 04: 23:59, 772
+    # ERROR[server - handler - request - 2] - io.nuls.transaction.service.impl.TxServiceImpl.verify(
+    #     TxServiceImpl.java: 254):tx
+    # validator
+    # fail - type: 16, -hash: e9fbc1410082b1d4dbf83ec888d1966460c6ea6b296514ac92f3846628af12cc
+    # 2020 - 02 - 19
+    # 04: 23:59, 772
+    # ERROR[server - handler - request - 2] - io.nuls.transaction.service.impl.TxServiceImpl.newTx(
+    #     TxServiceImpl.java: 163):verify
+    # failed: type:16 - txhash: e9fbc1410082b1d4dbf83ec888d1966460c6ea6b296514ac92f3846628af12cc, code: sc_0102
+    # 2020 - 02 - 19
+    # 04: 23:59, 773
+    # ERROR[server - handler - request - 2] - io.nuls.core.log.logback.NulsLogger.error(
+    #     NulsLogger.java: 210):NulsException - code: [sc_0102], -msg: null
+    # io.nuls.core.exception.NulsException: null
+    # at
+    # io.nuls.transaction.service.impl.TxServiceImpl.newTx(TxServiceImpl.java: 165)
+    # at
+    # io.nuls.transaction.rpc.cmd.TransactionCmd.newTx(TransactionCmd.java: 119)
+    # at
+    # jdk.internal.reflect.GeneratedMethodAccessor10.invoke(Unknown
+    # Source)
+    # at
+    # java.base / jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(
+    #     DelegatingMethodAccessorImpl.java: 43)
+    # at
+    # java.base / java.lang.reflect.Method.invoke(Method.java: 566)
+    # at
+    # io.nuls.core.rpc.netty.processor.RequestMessageProcessor.invoke(RequestMessageProcessor.java: 519)
+    # at
+    # io.nuls.core.rpc.netty.processor.RequestMessageProcessor.execute(RequestMessageProcessor.java: 288)
+    # at
+    # io.nuls.core.rpc.netty.processor.RequestMessageProcessor.callCommandsWithPeriod(
+    #     RequestMessageProcessor.java: 208)
+    # at
+    # io.nuls.core.rpc.netty.handler.message.TextMessageHandler.handler(TextMessageHandler.java: 116)
+    # at
+    # io.nuls.core.rpc.netty.handler.message.TextMessageHandler.run(TextMessageHandler.java: 76)
+    # at
+    # java.base / java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java: 1128)
+    # at
+    # java.base / java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java: 628)
+    # at
+    # java.base / java.lang.Thread.run(Thread.java: 834)
+    # 2020 - 02 - 19
+    # 04: 24:02, 0
+    # 88
+    # INFO[server - handler - request - 4] - io.nuls.transaction.service.impl.TxServiceImpl.getPackableTxs(
+    #     TxServiceImpl.java: 567):[Package start] - 可打包时间：7912, -可打包容量：4900000
+    # B, - height: 566850, - 当前待打包队列交易hash数: 0, - 待打包队列实际交易数: 0
+    # 2020 - 02 - 19
+    # 04: 24:0
+    # 8, 001
+    # INFO[server - handler - request - 4] - io.nuls.transaction.service.impl.TxServiceImpl.getPackableTxs(
+    #     TxServiceImpl.java: 906):[打包时间统计]
+    # 总执行时间: 5912, 剩余时间: 2000, 打包可用时间: 7912, 获取交易(循环)
+    # 总等待时间: 5800, 获取交易(循环)
+    # 执行时间: 5912, 获取交易(循环)
+    # 验证账本总时间: 0, 模块统一验证执行时间: 0, 合约执行时间: 0,
+    # 2020 - 02 - 19
+    # 04: 24:0
+    # 8, 001
+    # INFO[server - handler - request - 4] - io.nuls.transaction.service.impl.TxServiceImpl.getPackableTxs(
+    #     TxServiceImpl.java: 912):[Package
+    #                               end] - height: 566850 - 本次打包交易数:0 - 当前待打包队列交易hash数: 0, - 待打包队列实际交易数: 0
+
+    #     # chainId 	int 	chain id 	yes
+    # contractAddress 	string 	contract address 	yes
+    # methodName 	string 	contract method 	yes
+    # methodDesc 	string 	Contract method description, if the method in the contract is not overloaded, this parameter can be empty 	No
+    # args 	object[] 	List of parameters 	No
+    # #
+# #020-02-19 04:29:36,185 ERROR [server-handler-request-3] - io.nuls.contract.validator.CallContractTxValidator.validate(CallContractTxValidator.java:128):contract call error: The amount of the transfer is too small.
+# 2020-02-19 04:29:36,196 ERROR [server-handler-request-3] - io.nuls.contract.rpc.CallHelper.request(CallHelper.java:51):response error info is {"RequestID":"15821153761611149","ResponseProcessingTime":"27","ResponseStatus":65536,"ResponseComment":null,"ResponseMaxSize":"0","ResponseData":{"tx_newTx":null},"ResponseErrorCode":"sc_0102"}, cmd is tx_newTx, params is {"tx":"1000302a4d5e0a6d792072656d61726b73ca7a5f016dccb9aa46338aa19d120ff0c06c83b4589018667a5f02e7d72c3ad4e674f0101fc1b55bcb403de2e030d99a1b00000000000000000000000000000000000000000000000000000000000087340000000000001e54eb0b000000000b77726974655265766965774828537472696e672070726f6475637449642c20537472696e6720726576696577436f6d6d656e7473292072657475726e204c526576696577436f6e7472616374245265766965773b0201097377696d73756974730109746f6f206c617267658c01177a5f016dccb9aa46338aa19d120ff0c06c83b4589018667a5f01000c1631167202000000000000000000000000000000000000000000000000000008eb681688b100afca0001177a5f02e7d72c3ad4e674f0101fc1b55bcb403de2e030d97a5f01009a1b0000000000000000000000000000000000000000000000000000000000000000000000000000692103ffd7fe60a6bce4ed756ad9f8705f47fac5a20ce4de7136c9910a19c8f08142b3463044022061ac56755fc1692a92490a86ffeee7ba8e72a6617af9bd6306af2176991176bb02202d1edd6ad1fe49786228dea7b2993b58b3ca97ecc66560a4923a885729bae3a5","chainId":24442,"version":"1.0"}
+# 2020-02-19 04:29:36,196 ERROR [server-handler-request-3] - io.nuls.contract.rpc.CallHelper.request(CallHelper.java:53):Call interface [tx_newTx] error, ErrorCode is sc_0102, ResponseComment:null
+# 2020-02-19 04:29:36,197 ERROR [server-handler-request-3] - io.nuls.contract.rpc.CallHelper.request(CallHelper.java:58):
+# io.nuls.core.exception.NulsException: The amount of the transfer is too small
+# 	at io.nuls.contract.rpc.CallHelper.request(CallHelper.java:54)
+# 	at io.nuls.contract.rpc.call.TransactionCall.newTx(TransactionCall.java:48)
+# 	at io.nuls.contract.helper.ContractTxHelper.signAndBroadcastTx(ContractTxHelper.java:652)
+# 	at io.nuls.contract.service.impl.ContractTxServiceImpl.contractCallTx(ContractTxServiceImpl.java:135)
+# 	at io.nuls.contract.rpc.resource.ContractResource.call(ContractResource.java:347)
+# 	at jdk.internal.reflect.GeneratedMethodAccessor10.invoke(Unknown Source)
+# 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+# 	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+# 	at io.nuls.core.rpc.netty.processor.RequestMessageProcessor.invoke(RequestMessageProcessor.java:519)
+# 	at io.nuls.core.rpc.netty.processor.RequestMessageProcessor.execute(RequestMessageProcessor.java:288)
+# 	at io.nuls.core.rpc.netty.processor.RequestMessageProcessor.callCommandsWithPeriod(RequestMessageProcessor.java:208)
+# 	at io.nuls.core.rpc.netty.handler.message.TextMessageHandler.handler(TextMessageHandler.java:116)
+# 	at io.nuls.core.rpc.netty.handler.message.TextMessageHandler.run(TextMessageHandler.java:76)
+# 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+# 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+# 	at java.base/java.lang.Thread.run(Thread.java:834)
+# 2020-02-19 04:29:36,198 ERROR [server-handler-request-3] - io.nuls.contract.helper.ContractTxHelper.signAndBroadcastTx(ContractTxHelper.java:660):
+# io.nuls.core.exception.NulsException: io.nuls.core.exception.NulsException: io.nuls.core.exception.NulsException: The amount of the transfer is too small
+# 	at io.nuls.contract.rpc.call.TransactionCall.newTx(TransactionCall.java:51)
+# 	at io.nuls.contract.helper.ContractTxHelper.signAndBroadcastTx(ContractTxHelper.java:652)
+# 	at io.nuls.contract.service.impl.ContractTxServiceImpl.contractCallTx(ContractTxServiceImpl.java:135)
+# 	at io.nuls.contract.rpc.resource.ContractResource.call(ContractResource.java:347)
+# 	at jdk.internal.reflect.GeneratedMethodAccessor10.invoke(Unknown Source)
+# 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+# 	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+# 	at io.nuls.core.rpc.netty.processor.RequestMessageProcessor.invoke(RequestMessageProcessor.java:519)
+# 	at io.nuls.core.rpc.netty.processor.RequestMessageProcessor.execute(RequestMessageProcessor.java:288)
+# 	at io.nuls.core.rpc.netty.processor.RequestMessageProcessor.callCommandsWithPeriod(RequestMessageProcessor.java:208)
+# 	at io.nuls.core.rpc.netty.handler.message.TextMessageHandler.handler(TextMessageHandler.java:116)
+# 	at io.nuls.core.rpc.netty.handler.message.TextMessageHandler.run(TextMessageHandler.java:76)
+# 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
+# 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
+# 	at java.base/java.lang.Thread.run(Thread.java:834)
+# Caused by: io.nuls.core.exception.NulsException: io.nuls.core.exception.NulsException: The amount of the transfer is too small
+# 	at io.nuls.contract.rpc.CallHelper.request(CallHelper.java:59)
+# 	at io.nuls.contract.rpc.call.TransactionCall.newTx(TransactionCall.java:48)
+# 	... 14 common frames omitted
+# Caused by: io.nuls.core.exception.NulsException: The amount of the transfer is too small
+# 	at io.nuls.contract.rpc.CallHelper.request(CallHelper.java:54)
+# 	... 15 common frames omitted
+# root@ubuntu-8gb-nbg1-1:~/spacechain2/NULS_Wallet/Logs/smart-contract#
