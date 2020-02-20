@@ -18,14 +18,15 @@ import requests
 import random
 import json
 from requests.auth import HTTPBasicAuth
+import logging
 
 class CheckContract(object):
 
     def __init__(self):
 
-        which_server = 1
+        which_server = 0
 
-        if which_server == 1:                      # Kathy
+        if which_server == 0:                      # Kathy
             self.url_post  = "http://78.47.206.255:18004/jsonrpc"
             self.owner = "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7"
             self.contract_address = "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM"
@@ -33,14 +34,13 @@ class CheckContract(object):
             self.chainId = 24442
             self.senderk = "TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z"
 
-        elif which_server == 2:                    # Berzeck Westteam
-            self.url_post = "http://116.202.157.151:18003"  # jsonrpc dir?
-            #self.url_post = "http://116.202.157.151:18003/jsonrpc"  # jsonrpc dir?
+        elif which_server == 1:                    # Berzeck Westteam
+            self.url_post = "http://116.202.157.151:18004/jsonrpc" # jsonrpc dir?
             self.owner = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"
             self.contract_address = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"  #TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW
             self.chainId = 4810
 
-        elif which_server == 3:                                # home Baby
+        elif which_server == 2:                                # home Baby
             self.url_post = "http://0.0.0.0:18004/jsonrpc"  # jsonrpc dir?
             self.owner = "tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p"
             # self.contract_address = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"  #tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p
@@ -85,23 +85,12 @@ class CheckContract(object):
         method_outer = "getChainInfo"
         self.doit(method_outer, [self.chainId] )
 
-    # def req_get_all_prod_ids(self):   # uses invoke_view
-    #     method_type = "invokeView"
-    #     req_type = "getAllProductIds"  # goes in params list
-    #     weird_str = "() return String"
-    #     params_list = [req_type, weird_str, self.emp_list]  # 4 items
-    #     self.doit(method_type, params_list)
-
-
     def req_get_all_prod_ids(self):   # uses invoke_view
         method_outer = "invokeView"
         method_inner = "getAllProductIds"  # goes in params list
         return_str = "() return String"
         params_list = [self.chainId, self.contract_address, method_inner, return_str, self.emp_list]  # 4 items
         self.doit(method_outer, params_list)
-
-            # "method":"invokeView","params":[24442,"TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM","getReviews","(String productId) return Ljava/util/List;",["baseball"]],"id":914}'  http://78.47.206.255:18003/
-            # "getContract","params":[24442,"TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM"],"id":80}
 
     def req_get_reviews(self):  # "invokeView"
         method_outer = "invokeView"
@@ -161,7 +150,7 @@ class CheckContract(object):
 
     def getaccounts(self):
         method_outer = "getAccounts"
-        p = [2]
+        p = [self.chainId]
         self.doit(method_outer, p)
 
     def gettx(self):
@@ -175,8 +164,8 @@ if __name__ == "__main__":
     c = CheckContract()
     # c.req_get_chain_info()   # easy
     # sleep(1)
-    c.req_get_all_prod_ids()
-    c.req_get_reviews()  ## input contract id, pick product
+    # c.req_get_all_prod_ids()
+    # c.req_get_reviews()  ## input contract id, pick product
     # c.req_get_contract()
     # c.write_review()
     # c.getAccountLedgerList()
@@ -188,9 +177,10 @@ if __name__ == "__main__":
     # sleep(1)
     # sleep(1)
     # c.getapi()
-    # c.getaccounts()
+    c.getaccounts()
     # c.do_getAccount
-    c.gettx()
+    # c.gettx()
+
 
 #  curl -s -X GET -H 'Content-Type: application/json' --data
 # http://0.0.0.0:18003/api/account/address/validate  {"chainId": 0,"address": "tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p"}

@@ -2,13 +2,16 @@
 
 import requests
 import json
-from src.get_gas_limit import GetGasLimit
+import logging
+import time
+
 
 class CreateAccount(object):
 
     def __init__(self):
-        machine = 0   # 0=KathyUbuntu, 1=westteam
+        machine = 0   # <--- SET MACHINE NUMBER HERE : 0=KathyUbuntu, 1=Westteam
 
+        #-- # -- Westteams's   #0
         chainIdw = 4810   #0
         urlw = "http://westteam.nulstar.com:18004/jsonrpc"
 
@@ -16,13 +19,15 @@ class CreateAccount(object):
         chainIdk = 24442
         urlk = "http://78.47.206.255:18004/jsonrpc"
 
-        if machine == 0:  # kathys ubuntu
-            self.chainId = chainIdk
-            self.url = urlk
-            self.pri = None
-        elif machine == 1:  # westteam
+        if machine == 0:  # westteam
+            mname = 'Westteam'
             self.chainId = chainIdw
             self.url = urlw
+            self.pri = None
+        elif machine == 1:  # kathys ubuntu
+            mname = 'KathyUbuntu'
+            self.chainId = chainIdk
+            self.url = urlk
             self.pri = None
 
         self.head = dict([("Content-Type", "application/json;charset=UTF-8",)])
@@ -30,14 +35,17 @@ class CreateAccount(object):
         self.req.json = {"jsonrpc": "2.0"}
         self.comment = "a comment"
         self.id=99999
-
+        ts = time.time()
+        tss = str(ts)[:9]
+        fname = "acctsCreated" + mname + str(tss) + ".log"
+        logging.basicConfig(filename=fname, level=logging.INFO)
 
     def send_request(self, req):
         the_request = req.prepare()
         session = requests.Session()
-        print("the request: ", str(the_request.body))
+        # print("the request: ", str(the_request.body))
         response = session.send(the_request)
-        print(response.content)
+        # print(response.content)
         data_d = json.loads(response.content)
         thepair = data_d["result"]
         return thepair
@@ -56,34 +64,37 @@ class CreateAccount(object):
     # "method": "createAccount",
     # "params": [chainId, count, password],
     def create_account(self):
-        count = 1
-        pw = 'password123'
-        method_call = "createAccount"
-        p_list = [self.chainId, count, pw]
-        request = self.setup_top(method_call, p_list)
-        response = self.send_request(request)
-        addr = response[0]
-        self.get_pri_key(addr)
-        print(response)
+        rg = 1
+        for i in range(rg):
+            pw = 'password123'
+            method_call = "createAccount"
+            p_list = [self.chainId, 1, pw]
+            request = self.setup_top(method_call, p_list)
+            response = self.send_request(request)
+            addr = response[0]
+            pri_key = self.get_pri_key(addr)
+            response = self.import_pri_key(pri_key)
+            bigstr = "\n---created this account: " + addr + "  prikey: " + pri_key + "  pw: " + pw
+            print("-----" + bigstr)
+            logging.info(bigstr)
 
     def get_pri_key(self, address):
-        count = 1
+
         pw = 'password123'
         method_call = "getPriKey"
         p_list = [self.chainId, address, pw]
         request = self.setup_top(method_call, p_list)
-        pri = self.send_request(request)[0]
-        print(pri)
-        return pri
+        pri_key = self.send_request(request)
+        # print(pri_key)
+        return pri_key
 
     def import_pri_key(self, pri_key):
-        count = 1
         pw = 'password123'
         method_call = "importPriKey"
         p_list = [self.chainId, pri_key, pw]
         request = self.setup_top(method_call, p_list)
-        result = self.send_request(request)[0]
-        print(result)
+        result = self.send_request(request)
+        # print(result)
         return result
 
 # "method":"importPriKey",
@@ -93,6 +104,8 @@ class CreateAccount(object):
 
 if __name__ == "__main__":
     c = CreateAccount()
-    g = c.create_account()
-    print(g)
+    # g = c.create_account()
+    k = "TTbKRT4qJ62XeqDC7L5DyHgJwX1Mowsv5LCp"
+    g = c.get_pri_key(k)
+    print(k + " : " + g + " pw: ")
 
