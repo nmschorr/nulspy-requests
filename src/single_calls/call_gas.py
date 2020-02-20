@@ -45,7 +45,7 @@ class CallGas(object):
         reqr.json.update(param_dt)
         return reqr
 
-    def call_gas(self, price):
+    def call_gas(self, valueofasset):
         print("price is : ", price)
         methodk = "imputedContractCallGas"
         p_list = [self.chainId, self.senderk, price, self.contractAddressk, self.contract_name,
