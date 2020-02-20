@@ -97,6 +97,46 @@ class CreateAccount(object):
         # print(result)
         return result
 
+    def check_keys(self):
+        mylist = ["TTbKRT4ggekwqyVX2MqbCze8v7gfdban9dFk",
+                    "TTbKRT4grYGebwy7TgsPtjHYGr5ZCpgcwc9B",
+                    "TTbKRT4hsHgHSufJ4guFFGpWnsArBZFRtRw5",
+                    "TTbKRT4ihhbTBeW87ugyMQgxfFbVCznUFh43",
+                    "TTbKRT4jNjnK4NgnXuzZbs7p9sTsczZA9qh1",
+                    "TTbKRT4jwVBPfM2di6cv5nSqKBeAi54GXWoG",
+                    "TTbKRT4jXgGSypSbiS8Mryn7EvoqAxAQkqr4",
+                    "TTbKRT4kWZL3LBetgKYGCqGn4zm3FwgvAB3D",
+                    "TTbKRT4kYa7rQXTR3616EsMT6xmPT1pvsris",
+                    "TTbKRT4m77RHKTFoY46omXemBGBPgVNak1zS",
+                    "TTbKRT4nxYfyWgATiHh3dZBrpFe2osT6H21B",
+                    "TTbKRT4o2Wm5aejgdV3pxC2jVYw5DzGsFzj5",
+                    "TTbKRT4oNGc58s1K6zw3AUbcfJr9V7SU3WKv",
+                    "TTbKRT4ooR8Yb4VgRRitEpDt74qGzo7cNVnQ",
+                    "TTbKRT4qYZtALN5vZGHbbNToqTzSTcMJpapL",
+                    "TTbKRT4riVan8h5hRJevzt9bJ11FSKuDVGiU",
+                    "TTbKRT4sddAQ9j3fVvmvneFA32k1yzfsvC4p",
+                    "TTbKRT4sEkWV71GG1D2kTTELyKVrYU3r8J5e",
+                    "TTbKRT4taQHeh9XrH7WhzVDu5UM5S2cMEguR",
+                    "TTbKRT4tXjJHA9dURtPCDRDfgyQrbdhrmxsy",
+                    "TTbKRT4u1cND3XGYg6F2KxACcg6e3uewwJ2y",
+                    "TTbKRT4u1KQY4ZUs4qQUetq6mQgTXmTB3Yhh",
+                    "TTbKRT4uQxympsoeAZJaadgH8G6CoapZAzG6",
+                    "TTbKRT4vzTPhYDqdXCCDJuXUKvPNoTjFqXJm",
+                    "TTbKRT4wkUjLYmWeT4faSPWxYdBGtt41AcM3",
+                    "TTbKRT4xBpnSBEvVqvbbRRXjPEBAkKnL2XGS",
+                    "TTbKRT4o2PPpu3xuKLWCbY1Y6mbmNPB6Gxst",
+                    "TTbKRT4oqYmhia4jG8kbBjGzS5Skx59Q94ej",
+                    "TTbKRT4vMkq94SLRCZFgRQpQ252SejJQnZrR",
+                    "TTbKRT4hTEmtvqcsh6KujDc7ndB4Y3TcPkbY",
+                    "TTbKRT4qJ62XeqDC7L5DyHgJwX1Mowsv5LCp"]
+
+        for i in mylist:
+            key = self.get_pri_key(i)
+            bigstr = i + " pk: " + key + " pw: password123"
+            print(bigstr)
+            logging.info(bigstr)
+
+
 # "method":"importPriKey",
 # "params":[chainId, priKey, password],
 # "method":"getPriKey",
@@ -105,7 +145,7 @@ class CreateAccount(object):
 if __name__ == "__main__":
     c = CreateAccount()
     # g = c.create_account()
-    k = "TTbKRT4qJ62XeqDC7L5DyHgJwX1Mowsv5LCp"
-    g = c.get_pri_key(k)
-    print(k + " : " + g + " pw: ")
+    #k = "TTbKRT4qJ62XeqDC7L5DyHgJwX1Mowsv5LCp"
+    g = c.check_keys()
+    # print(k + " : " + g + " pw: ")
 
