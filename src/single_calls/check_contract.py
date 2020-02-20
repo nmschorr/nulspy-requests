@@ -23,7 +23,7 @@ class CheckContract(object):
 
     def __init__(self):
 
-        which_server = 3
+        which_server = 1
 
         if which_server == 1:                      # Kathy
             self.url_post  = "http://78.47.206.255:18004/jsonrpc"
@@ -46,7 +46,6 @@ class CheckContract(object):
             # self.contract_address = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"  #tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p
             self.chainId = 2
 
-
         self.myhead = dict([("Content-Type", "application/json;charset=UTF-8",)])
         rand_id = random.randrange(1, 99)
         r_id = 900000 + rand_id
@@ -55,33 +54,16 @@ class CheckContract(object):
         self.passwd = "nuls123456"
         self.emp_list = []
 
-
-#               "(String productId, String reviewComments) return LReviewContract$Review;"
-# #               "(String productId, String reviewComments) return LReviewContract$Review;"
-#     "TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z"
-#     sender
-#     ["TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z"]
-#     sender
-#     5
-#     a020dc9c5110453c4b33608c65c26d6560da007078bb21e94a1022c5333dda8
-
-
     def doit(self, method_outer, p_list):
 
         url = self.url_post
         head = self.myhead
-        # authtup = (user, pw)
-        #authd = self.auth_d
-
         req = requests.Request('POST', url, headers=head)
 
-        method_type_d = {"method": method_outer}
-        self.jsonrpc_d.update(method_type_d)
+        self.jsonrpc_d.update({"method": method_outer})
 
         param_d: dict = {"params": p_list}
         param_d.update(self.id_dict)
-
-        #param_d.update(authd)
 
         self.jsonrpc_d.update(param_d)
         req.json = self.jsonrpc_d
@@ -92,7 +74,6 @@ class CheckContract(object):
         print("the_req is: ", str(the_request.body))
 
         session = requests.Session()
-        x = session.params
         the_answer = session.send(the_request)
         print(the_request.headers)
         print(the_request.url)
@@ -104,14 +85,12 @@ class CheckContract(object):
         method_outer = "getChainInfo"
         self.doit(method_outer, [self.chainId] )
 
-
-
-    def req_get_all_prod_ids(self):   # uses invoke_view
-        method_type = "invokeView"
-        req_type = "getAllProductIds"  # goes in params list
-        weird_str = "() return String"
-        params_list = [req_type, weird_str, self.emp_list]  # 4 items
-        self.doit(method_type, params_list)
+    # def req_get_all_prod_ids(self):   # uses invoke_view
+    #     method_type = "invokeView"
+    #     req_type = "getAllProductIds"  # goes in params list
+    #     weird_str = "() return String"
+    #     params_list = [req_type, weird_str, self.emp_list]  # 4 items
+    #     self.doit(method_type, params_list)
 
 
     def req_get_all_prod_ids(self):   # uses invoke_view
@@ -128,66 +107,20 @@ class CheckContract(object):
         method_outer = "invokeView"
         method_inner = "getReviews"
         return_val_str = "(String productId) return Ljava/util/List;"
-        product_list = ["baseball"]  # 4 items
+        product_list = ["req_get_all_prod_ids"]  # 4 items
         params_list = [self.chainId, self.contract_address, method_inner,
                        return_val_str, product_list]  # 4
-        # items
         self.doit(method_outer, params_list)
-
-    # json is: {24442: 'TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM', 'method': 'invokeView',
-    #           'params': ['getReviews', '(String productId) return Ljava/util/List;',
-    #                      ['baseball']], 'id': 366}
 
     def req_get_contract(self):
         method_outer = "getContract"
         params_list = [self.chainId, self.contract_address]  # 4 items
         self.doit(method_outer, params_list)
 
-    # def req_get_info(self):
-    #     method_outer = "info"
-    #     params_list = []  # 4 items
-    #     self.doit(method_outer, params_list)
-
     def req_get_writer(self):
         method_outer = "getWriter"
         params_list = [self.chainId, self.contract_address]  # 4 items
         self.doit(method_outer, params_list)
-
-    def write_review(self):
-        # cmds.log:POST , path : ,data:{"jsonrpc":"2.0","method":"imputedContractCallGas",
-        # "params":[24442,"TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7",200000000,"TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM",
-        #"writeReview","(String productId, String reviewComments) return LReviewContract$Review;",
-        # ["baseball","nice baseball"]],"id":275}
-
-        method_outer = "imputedContractCallGas"
-        method_inner = "writeReview"
-        #args = '[{"productId": "baseball"}, {"reviewComments": "happiness"}]"'
-        #params = [{"productId": "baseballshirt2"}, {"reviewComments": "happiness"}]
-        params = [{"baseballshirt2": "happiness9777"}]
-        p = ["baseballuniformsNew", "they were pretty but and too yellow"]
-        ret_val = "(String productId, String reviewComments) return LReviewContract$Review;"
-
-        value = '000545454'  # set in stone
-        # value = '700700000'  # set in stone
-
-        params_list = [self.chainId, self.owner, 52400000000, self.contract_address, method_inner,
-                       ret_val, p]
-        # params_list = [ch_id, sender, value, contract_addy, method_dict, ret_val, params]
-        self.doit(method_outer, params_list)
-
-# from web-wallet - perfect!!!!!!!!!!!!!!!!!!!!
-# , data: {"jsonrpc": "2.0", "method": "imputedContractCallGas",
-#          "params": [24442, "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7", 52400000000,
-#                     "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM", "writeReview",
-#                     "(String productId, String reviewComments) return LReviewContract$Review;",
-#                     ["baseballuniforms", "they were ugly and too small"]], "id": 91}
-    def req_do_writer(self):
-        method_outer = "WriteReviewEvent"
-        rev = "they were pretty but and too yellow"
-        item = "baseballsocks"
-        p = [self.contract_address, item, rev, self.owner]
-        self.doit(self.chainId, p)
-
 
     def getTheBestBlock(self):
         method_outer = "getBestBlockHeader"
@@ -199,9 +132,6 @@ class CheckContract(object):
         p = []
         self.doit(method_outer, p)
 
-
-
-    # getAccountList
     def getAccountLedgerList(self):
         method_outer = "getAccountLedgerList"
         p = [self.chainId, self.contract_address]
@@ -234,27 +164,33 @@ class CheckContract(object):
         p = [2]
         self.doit(method_outer, p)
 
+    def gettx(self):
+        method_outer = "getTx"
+        txHash = '3053994246ef3b0eeb8fd2e070cfdfe37bf137b255db739244a57fe7a810b084'
+        p = [self.chainId, txHash]
+        self.doit(method_outer, p)
+
 if __name__ == "__main__":
     from time import sleep
     c = CheckContract()
-    c.req_get_chain_info()   # easy
-    sleep(1)
-    # c.req_get_all_prod_ids()
-    # c.req_get_reviews()  ## input contract id, pick product
+    # c.req_get_chain_info()   # easy
+    # sleep(1)
+    c.req_get_all_prod_ids()
+    c.req_get_reviews()  ## input contract id, pick product
     # c.req_get_contract()
     # c.write_review()
     # c.getAccountLedgerList()
-    sleep(1)
-    c.do_getAddressByPriKey()
-    c.getTheBestBlock()
-    sleep(1)
-    c.getAccount1()
-    sleep(1)
-    sleep(1)
-    c.getapi()
-    c.getaccounts()
-    c.do_getAccount
-
+    # sleep(1)
+    # c.do_getAddressByPriKey()
+    # c.getTheBestBlock()
+    # sleep(1)
+    # c.getAccount1()
+    # sleep(1)
+    # sleep(1)
+    # c.getapi()
+    # c.getaccounts()
+    # c.do_getAccount
+    c.gettx()
 
 #  curl -s -X GET -H 'Content-Type: application/json' --data
 # http://0.0.0.0:18003/api/account/address/validate  {"chainId": 0,"address": "tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p"}
