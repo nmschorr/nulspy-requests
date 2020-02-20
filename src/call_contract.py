@@ -16,7 +16,7 @@ class CallContract(object):
         self.contract_addressk = "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM"
         self.senderk = "TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z"
         self.chainId = 24442
-        self.price = '74600000'
+        self.price = 391000000
         self.url = "http://78.47.206.255:18004/jsonrpc"
         self.my_id = 99999
         self.head = dict([("Content-Type", "application/json;charset=UTF-8",)])
@@ -24,7 +24,7 @@ class CallContract(object):
         self.req.json = {"jsonrpc": "2.0"}
         self.id_dict: dict = {"id": '9999'}
         self.commentk = "a comment"
-        self.id='99999'
+        self.id=99999
         self.pw = 'nuls123456'
         self.contract_desc = "(String productId, String reviewComments) return LReviewContract$Review;"
         self.gasobj = None
@@ -99,7 +99,7 @@ class CallContract(object):
 
 if __name__ == "__main__":
     c = CallContract()
-    c.get_account_balance()
+    g = c.get_account_balance()
     g = c.call_contract()
     print(g)
 

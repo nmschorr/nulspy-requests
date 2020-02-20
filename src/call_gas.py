@@ -17,15 +17,13 @@ class CallGas(object):
         self.chainId = 24442
         self.value = 0
         self.url = "http://78.47.206.255:18004/jsonrpc"
-        self.my_id = 99999
+        self.id = 99996
         self.head = dict([("Content-Type", "application/json;charset=UTF-8",)])
-        self.price = None
         self.commentk = "a comment"
-        self.id='99999'
         self.pw = 'nuls123456'
         self.contract_desc = "(String productId, String reviewComments) return LReviewContract$Review;"
         self.contract_name = "writeReview"
-        self.args = [["swimsuits"], ["too large"]]
+        self.args = ["swimsuits", "too large"]
 
     def send_request(self, req):
         the_request = req.prepare()
@@ -48,9 +46,9 @@ class CallGas(object):
         return reqr
 
     def call_gas(self, price):
-        self.price = price
+        print("price is : ", price)
         methodk = "imputedContractCallGas"
-        p_list = [self.chainId, self.senderk, self.price, self.contractAddressk, self.contract_name,
+        p_list = [self.chainId, self.senderk, price, self.contractAddressk, self.contract_name,
                   self.contract_desc, self.args]
         request = self.setup_top(methodk, p_list)
         resp1 = self.send_request(request)
