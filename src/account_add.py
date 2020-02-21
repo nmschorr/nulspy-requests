@@ -37,14 +37,15 @@ class CreateAccount(object):
         self.id=99999
         ts = time.time()
         tss = str(ts)[:9]
-        fname = "acctsCreated" + mname + str(tss) + ".log"
+        fname = "..\logs\\acctsCreated" + mname + str(tss) + ".log"
         logging.basicConfig(filename=fname, level=logging.INFO)
 
     def send_request(self, req):
+        response = None
         the_request = req.prepare()
         session = requests.Session()
         # print("the request: ", str(the_request.body))
-        response = session.send(the_request)
+        #response = session.send(the_request)
         # print(response.content)
         data_d = json.loads(response.content)
         thepair = data_d["result"]
