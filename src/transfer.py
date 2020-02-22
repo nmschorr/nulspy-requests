@@ -41,8 +41,7 @@ class Transfer(object):
         for receiver in inputs:
             print("doing this receiver: ", receiver)
             p_list = [self.chainId, asset, self.sender, receiver, self.pw, amt, self.remark]
-            settings_w = {"chain": chain_idw, "url": self.url, "pw": pww}
-            request = st_obj.setup_top(method_nm, p_list, )
+            request = st_obj.setup_top(method_nm, p_list, self.url)
             resp1 = SendRequest.send_request(request)
             print("resp1: ", resp1)
 
