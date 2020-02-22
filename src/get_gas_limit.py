@@ -5,7 +5,8 @@
 import requests
 import random
 import json
-from requests.auth import HTTPBasicAuth
+import
+from src.send_req import SendRequest
 
 class GetGasLimit(object):
     # http://bin-hex-converter.online-domain-tools.com/
@@ -31,23 +32,12 @@ class GetGasLimit(object):
 
 
     def send_request(self, req):
-        the_request = req.prepare()
-        session = requests.Session()
-        response = session.send(the_request)
-        print(response.content)
-        data_d = json.loads(response.content)
-        thepair = data_d["result"]
-        return thepair
+        r = SendRequest.send_request(req)
+        return r
 
     def setup_top(self, method, plist):
-        method_type = {"method": method}
         reqr = requests.Request('POST', self.url, headers=self.head)
-        reqr.json = {"jsonrpc": "2.0"}
-        reqr.json.update(method_type)
-        idd: dict = {"id": self.id}
-        param_dt: dict = {"params": plist}
-        param_dt.update(idd)
-        reqr.json.update(param_dt)
+        reqr.json = {"jsonrpc": "2.0", "method": method, "params": plist, "id": self.id}
         return reqr
 
     def get_gas_limit(self):   # returns the gas_limit  / "params":[{{chainIdk}},{{senderk}},{{hex2}},[]],

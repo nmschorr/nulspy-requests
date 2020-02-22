@@ -62,14 +62,8 @@ class CallContract(object):
         return data_d
 
     def setup_top(self, method, plist):
-        method_type = {"method": method}
         reqr = requests.Request('POST', self.url, headers=self.head)
-        reqr.json = {"jsonrpc": "2.0"}
-        reqr.json.update(method_type)
-        id_d: dict = {"id": '9999'}
-        param_dt: dict = {"params": plist}
-        param_dt.update(id_d)
-        reqr.json.update(param_dt)
+        reqr.json = {"jsonrpc": "2.0", "method": method, "params": plist, "id": self.id}
         return reqr
 
     def get_account_balance(self):
@@ -104,9 +98,9 @@ class CallContract(object):
 if __name__ == "__main__":
     c = CallContract()
     my_review = ["swimsuits", "too large"]
-    value_of_asset = 25000     # cost to review
+    value_of_asset = 25     # cost to review
     g = c.call_contract(value_of_asset, my_review)
     print(g)
 
 
-    g = c.get_account_balance()
+    # g = c.get_account_balance()
