@@ -14,16 +14,25 @@ class CreateAccount(object):
 
     def __init__(self):
         SetupLogging()
-        settings_d = SettingsSet.settings_set(1)  # 0=KathyUbuntu, 1=westteam
-        self.chainId = settings_d.get('chain')
-        self.url = settings_d.get('url')
-        self.pw = settings_d.get('pw')
+        s = SettingsSet()
 
-        self.head = dict([("Content-Type", "application/json;charset=UTF-8",)])
-        self.req = requests.Request('POST', self.url, headers=self.head)
-        self.req.json = {"jsonrpc": "2.0"}
-        self.remark = "create account"
-        self.id = 99999
+        machine = 0   # 1 for west, 0 for kathy
+
+        if machine == 1:
+            accts = s.accts_w
+            settings = s.settings_w
+        else:
+            accts = s.accts_k
+            settings = s.settings_k
+
+        self.chainId = settings.get('chain')
+        self.url = settings.get('url')
+        self.pw = settings.get('pw')
+        self.sender = accts.get('sender')
+        self.remark = "transfer to student account"
+
+        # self.receiver = accts.get('receiver') # get from inputs
+
 
     def create_account(self):
         st_obj = SetupTop()
@@ -43,14 +52,15 @@ class CreateAccount(object):
             logging.info(bigstr)
 
     def get_pri_key(self, address):
+        st_obj = SetupTop()
 
         pw = 'password123'
-        method_call = "getPriKey"
+        method_nm = "getPriKey"
         p_list = [self.chainId, address, pw]
-        request = self.setup_top(method_call, p_list)
-        pri_key = self.send_request(request)
-        print(pri_key)
-        return pri_key
+        request = st_obj.setup_top(method_nm, p_list, self.url)
+        resp1 = SendRequest.send_request(request)
+        print(resp1)
+        return resp1
 
     def import_pri_key(self, pri_key):
         pw = 'password123'
