@@ -12,21 +12,23 @@ class GetBalance(object):
 
     def __init__(self):
         SetupLogging()
-        settings_d = SettingsSet.settings_set(1)   # 0=KathyUbuntu, 1=westteam
-        self.chainId = settings_d.get('chain')
-        self.url = settings_d.get('url')
-        self.pw = settings_d.get('pw')
+        s = SettingsSet()
+        machine = 0   # 1 for west, 0 for kathy
 
-        self.head = dict([("Content-Type", "application/json;charset=UTF-8",)])
-        self.req = requests.Request('POST', self.url, headers=self.head)
-        self.req.json = {"jsonrpc": "2.0"}
-        self.remark = "get balance"
-        self.id = 99999
+        if machine == 1:
+            accts = s.accts_w
+            settings = s.settings_w
+        else:
+            accts = s.accts_k
+            settings = s.settings_k
 
-    def setup_top(self, method, plist):
-        reqr = requests.Request('POST', self.url, headers=self.head)
-        reqr.json = {"jsonrpc": "2.0", "method": method, "params": plist, "id": self.id}
-        return reqr
+        self.chainId = settings.get('chain')
+        self.url = settings.get('url')
+        self.pw = settings.get('pw')
+        self.sender = accts.get('sender')
+        self.contract = accts.get('contract_address')
+        # self.receiver = accts.get('receiver') # get from inputs
+        self.remark = "student account"
 
     def get_account_balance(self):
         st_obj = SetupTop()
@@ -35,14 +37,12 @@ class GetBalance(object):
         for receiver in inputs:
             method_nm = "getAccountBalance"
             p_list = [self.chainId, self.chainId, 1, receiver]
-            request = st_obj.setup_top(method_nm, p_list)
+            request = st_obj.setup_top(method_nm, p_list, self.url)
             resp1 = SendRequest.send_request(request)
             results_d = resp1.get("result")
 
             total_balance = results_d.get("totalBalance")
-            balance = results_d.get("balance")
             print("totalBalance: " + receiver + ":  " + str(total_balance))
-            #print("     balance: " + receiver + ":  " + str(balance))
 
 
 if __name__ == "__main__":

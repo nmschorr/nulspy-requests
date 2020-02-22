@@ -12,6 +12,7 @@ class Transfer(object):
     def __init__(self):
         SetupLogging()
         s = SettingsSet()
+
         machine = 0   # 1 for west, 0 for kathy
 
         if machine == 1:
@@ -32,10 +33,11 @@ class Transfer(object):
 
     def transfer(self):      #ch assetid address toaddy pw amt rem
         st_obj = SetupTop()
-        method_nm = "transfer"
+        method_nm = 'transfer'
         asset = 1
-        inputs = Inputs.nowlist
         base_amt = 2
+        inputs = Inputs.inputlist
+
         amt = base_amt * (10**8)
         #amt = 2000 * (10**8) - 2000
         for receiver in inputs:
