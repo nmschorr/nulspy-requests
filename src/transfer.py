@@ -1,43 +1,48 @@
 #!/usr/bin/python3.7
 
-import requests
-from src.send_req import SendRequest
-from src.inputs import Inputs
-from src.setup_log import SetupLogging
-from src.settings_set import SettingsSet
+from src.libs.send_req import SendRequest
+from src.user_inputs.inputs import Inputs
+from src.libs.setup_log import SetupLogging
+from src.user_inputs.settings_set import SettingsSet
+from src.libs.setup_top import SetupTop
 
 
 class Transfer(object):
 
     def __init__(self):
         SetupLogging()
-        settings_d = SettingsSet.settings_set(1)  # 0=KathyUbuntu, 1=westteam
-        self.chainId = settings_d.get('chain')
-        self.url = settings_d.get('url')
-        self.pw = settings_d.get('pw')
+        s = SettingsSet()
+        machine = 0   # 1 for west, 0 for kathy
 
-        self.head = dict([("Content-Type", "application/json;charset=UTF-8",)])
-        self.req = requests.Request('POST', self.url, headers=self.head)
-        self.req.json = {"jsonrpc": "2.0"}
+        if machine == 1:
+            accts = s.accts_w
+            settings = s.settings_w
+        else:
+            accts = s.accts_k
+            settings = s.settings_k
+
+        self.chainId = settings.get('chain')
+        self.url = settings.get('url')
+        self.pw = settings.get('pw')
+        self.sender = accts.get('sender')
+        # self.receiver = accts.get('receiver') # get from inputs
+
         self.remark = "transfer to student account"
         self.id = 99999
 
-    def setup_top(self, method, plist):
-        reqr = requests.Request('POST', self.url, headers=self.head)
-        reqr.json = {"jsonrpc": "2.0", "method": method, "params": plist, "id": self.id}
-        return reqr
-
     def transfer(self):      #ch assetid address toaddy pw amt rem
-        asset = 1
+        st_obj = SetupTop()
         method_nm = "transfer"
-        sender = 'TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW'
-        inputs = Inputs.xferlist
-
-        amt = 2000 * (10**8) - 2000
+        asset = 1
+        inputs = Inputs.nowlist
+        base_amt = 2
+        amt = base_amt * (10**8)
+        #amt = 2000 * (10**8) - 2000
         for receiver in inputs:
             print("doing this receiver: ", receiver)
-            p_list = [self.chainId, asset, sender, receiver, self.pw, amt, self.remark]
-            request = self.setup_top(method_nm, p_list)
+            p_list = [self.chainId, asset, self.sender, receiver, self.pw, amt, self.remark]
+            settings_w = {"chain": chain_idw, "url": self.url, "pw": pww}
+            request = st_obj.setup_top(method_nm, p_list, )
             resp1 = SendRequest.send_request(request)
             print("resp1: ", resp1)
 

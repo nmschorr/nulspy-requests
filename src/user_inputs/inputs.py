@@ -3,6 +3,8 @@
 
 class Inputs(object):
 
+    nowlist = ['TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z']
+
     inputlist = ['TTbKRT4u1KQY4ZUs4qQUetq6mQgTXmTB3Yhh']
 
     xferlist333 = ['TTbKRT4ooR8Yb4VgRRitEpDt74qGzo7cNVnQ']
@@ -49,7 +51,27 @@ class Inputs(object):
     #             'TTbKRT4hTEmtvqcsh6KujDc7ndB4Y3TcPkbY']
 
 
-
+    #     cklist = ['TTbKRT4gdnX68zo6NMzt1YoEtcdKUkpdA8SC',
+    #                    'TTbKRT4h2HMcNMRgWgVxAXzWytSjY5ixrhFW',
+    #                    'TTbKRT4hhemTmsv6w9ykeupD6zwu3rC8vpyh',
+    #                    'TTbKRT4iYyndPE7ecCjQKnvaiiUSdiYCXR5E',
+    #                    'TTbKRT4kqbSDDSXL2VSE9hvzPoisvKnBoRSz',
+    #                    'TTbKRT4mcFGWvCgMwprNVCifkNwgGP7Q2UAv',
+    #                    'TTbKRT4mdzsc9dbvMS8N8UUJTCsoxCZTQGue',
+    #                    'TTbKRT4mEF6eWHwxUYKaB7qQPuLTGvxWaM6A',
+    #                    'TTbKRT4pgb9hUW4JERiuePBSCZNh8zrVQu5o',
+    #                    'TTbKRT4rL5dnhRJyYz39VcoftcUDBti9Qrni',
+    #                    'TTbKRT4rUxUMvyuBsbfS9PmoHqVJ8EhcRwzD',
+    #                    'TTbKRT4rY7bDtZyciJF7dxgsbFzXw7opRzVx',
+    #                    'TTbKRT4sYGMwUfocG6qywkoZQMV1dsDbj3JM',
+    #                    'TTbKRT4tkrYaRAeQcktSQ5k5voUb35f71feA',
+    #                    'TTbKRT4tTAWzAVbsaUwMGqtJnRm2ww6A9U1H',
+    #                    'TTbKRT4uidQUHXSAtmNayckjF1pXYyx45M89',
+    #                    'TTbKRT4v36STBfA5qA9AHXJfh2i1rtMiN8Xj',
+    #                    'TTbKRT4wBXBY4PDqpv4k2Z6cSMR4Lw8R8KsS',
+    #                    'TTbKRT4wiwW5EyB5MEhwnv5UoqtkPGoBCmeR',
+    #                    'TTbKRT4x17qjDfAZpQwEBNcf7nsccUgs4Vzv',
+    #                    'TTbKRT4xMGnUcezcWAjQkHSFUdjrkgxnKZdX']
 
 
     inputlistx2 = ['TTbKRT4gdnX68zo6NMzt1YoEtcdKUkpdA8SC',

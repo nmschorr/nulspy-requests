@@ -3,10 +3,12 @@
 
 
 import requests
-import random
 import json
-from requests.auth import HTTPBasicAuth
-
+from src.libs.send_req import SendRequest
+from src.user_inputs.inputs import Inputs
+from src.libs.setup_log import SetupLogging
+from src.user_inputs.settings_set import SettingsSet
+from src.libs.setup_top import SetupTop
 class CallGas(object):
 
     def __init__(self):
@@ -35,14 +37,8 @@ class CallGas(object):
         return thepair
 
     def setup_top(self, method, plist):
-        method_type = {"method": method}
         reqr = requests.Request('POST', self.url, headers=self.head)
-        reqr.json = {"jsonrpc": "2.0"}
-        reqr.json.update(method_type)
-        idd: dict = {"id": self.id}
-        param_dt: dict = {"params": plist}
-        param_dt.update(idd)
-        reqr.json.update(param_dt)
+        reqr.json = {"jsonrpc": "2.0", "method": method, "params": plist, "id": self.id}
         return reqr
 
     def call_gas(self, valueofasset):

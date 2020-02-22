@@ -1,10 +1,11 @@
 #!/usr/bin/python3.7
 
 import requests
-from src.send_req import SendRequest
-from src.inputs import Inputs
-from src.setup_log import SetupLogging
-from src.settings_set import SettingsSet
+from src.libs.send_req import SendRequest
+from src.user_inputs.inputs import Inputs
+from src.libs.setup_log import SetupLogging
+from src.user_inputs.settings_set import SettingsSet
+from src.libs.setup_top import SetupTop
 
 class GetBalance(object):
     # http://bin-hex-converter.online-domain-tools.com/
@@ -28,11 +29,13 @@ class GetBalance(object):
         return reqr
 
     def get_account_balance(self):
+        st_obj = SetupTop()
+
         inputs = Inputs.xferlist
         for receiver in inputs:
             method_nm = "getAccountBalance"
             p_list = [self.chainId, self.chainId, 1, receiver]
-            request = self.setup_top(method_nm, p_list)
+            request = st_obj.setup_top(method_nm, p_list)
             resp1 = SendRequest.send_request(request)
             results_d = resp1.get("result")
 
