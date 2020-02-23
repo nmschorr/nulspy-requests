@@ -27,10 +27,11 @@ class CheckContract(object):
         which_server = 0
 
         if which_server == 0:                      # Kathy
-            self.url_post  = "http://78.47.206.255:18004/jsonrpc"
+            #self.url_post  = "http://78.47.206.255:18004/jsonrpc"
+            self.url_post  = "http://78.47.206.255:18003"
             self.owner = "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7"
             self.contract_address = "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM"
-            self.contract_desc =  "(String productId, String reviewComments) return LReviewContract$Review;"
+            self.contract_desc = "(String productId, String reviewComments) return LReviewContract$Review;"
             self.chainId = 24442
             self.senderk = "TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z"
 
@@ -116,6 +117,11 @@ class CheckContract(object):
         p = [ self.chainId ]
         self.doit(method_outer, p)
 
+    def getChainInfo(self):
+        method_outer = "getChainInfo"
+        p = [self.chainId]
+        self.doit(method_outer, p)
+
     def getInfo(self):
         method_outer = "info"
         p = []
@@ -128,24 +134,33 @@ class CheckContract(object):
 
     def do_getAccount(self):
         method_outer = "getAddressByPriKey"
-        pk = "92dc99194317649ce165e5a8185fc05a751b293c1faf787636adba70e06804c6d5432e5ecc12096c5a3b33a0d6812896"
-        p = [pk]
+        pk = "a9b05bf06764f83297ba906c3401c7b4945dd8fbb4dafeed1234809f0c4782a2"  #S7 on Kathy
+        p = [self.chainId, pk]
+        self.doit(method_outer, p)
+
+    def do_getAccount(self):
+        method_outer = "getAccount"
+        pk = "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7"  #S7 on Kathy
+        p = [self.chainId, pk, "nuls123456"]
         self.doit(method_outer, p)
 
     def getAccount1(self):
         method_outer = "getAccount"
-        p = [2, "tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p"]  # Baby
+
+        p = [self.chainId, "tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p"]  # Baby
         self.doit(method_outer, p)
 
     def do_getAddressByPriKey(self):
         method_outer = "getAddressByPriKey"
-        pk = "92dc99194317649ce165e5a8185fc05a751b293c1faf787636adba70e06804c6d5432e5ecc12096c5a3b33a0d6812896"
-        p = [pk]
+        pk = "a9b05bf06764f83297ba906c3401c7b4945dd8fbb4dafeed1234809f0c4782a2"  #S7 on Kathy
+
+        #pk = "92dc99194317649ce165e5a8185fc05a751b293c1faf787636adba70e06804c6d5432e5ecc12096c5a3b33a0d6812896"
+        p = [self.chainId, pk]
         self.doit(method_outer, p)
 
     def getapi(self):
         method_outer = "getDeclaredMethods"  # requestMethods   getMethods  callCommands  getDeclaredMethods
-        p = []
+        p = [self.chainId]
         self.doit(method_outer, p)
 
     def getaccounts(self):
@@ -177,9 +192,23 @@ if __name__ == "__main__":
     # sleep(1)
     # sleep(1)
     # c.getapi()
-    c.getaccounts()
+    c.do_getAccount()
     # c.do_getAccount
     # c.gettx()
+    #c.req_get_contract()
+    c.getChainInfo()
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #  curl -s -X GET -H 'Content-Type: application/json' --data
