@@ -24,7 +24,7 @@ class CheckContract(object):
 
     def __init__(self):
 
-        which_server = 0
+        which_server = 1
 
         if which_server == 0:                      # Kathy
             #self.url_post  = "http://78.47.206.255:18004/jsonrpc"
@@ -104,7 +104,8 @@ class CheckContract(object):
 
     def req_get_contract(self):
         method_outer = "getContract"
-        params_list = [self.chainId, self.contract_address]  # 4 items
+        params_list = [self.chainId, "TTbKRT5DVddw7rDN1UrS9Wo3xGLFszwYwMLR"]  # 4 items
+        #params_list = [self.chainId, self.contract_address]  # 4 items
         self.doit(method_outer, params_list)
 
     def req_get_writer(self):
@@ -192,11 +193,11 @@ if __name__ == "__main__":
     # sleep(1)
     # sleep(1)
     # c.getapi()
-    c.do_getAccount()
+    #c.do_getAccount()
     # c.do_getAccount
     # c.gettx()
-    #c.req_get_contract()
-    c.getChainInfo()
+    c.req_get_contract()
+    #c.getChainInfo()
 
 
 

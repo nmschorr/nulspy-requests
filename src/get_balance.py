@@ -13,7 +13,7 @@ class GetBalance(object):
     def __init__(self):
         SetupLogging()
         s = SettingsSet()
-        machine = 0   # 1 for west, 0 for kathy
+        machine = 1   # 1 for west, 0 for kathy
 
         if machine == 1:
             accts = s.accts_w
@@ -33,10 +33,10 @@ class GetBalance(object):
     def get_account_balance(self):
         st_obj = SetupTop()
 
-        inputs = Inputs.xferlist
+        inputs = Inputs.inputlist
         for receiver in inputs:
             method_nm = "getAccountBalance"
-            p_list = [self.chainId, self.chainId, 1, receiver]
+            p_list = [self.chainId, self.chainId, 1, "TTbKRT4vrHMQdyQCATrdu6godeo1FJWSFVVk"]
             request = st_obj.setup_top(method_nm, p_list, self.url)
             resp1 = SendRequest.send_request(request)
             results_d = resp1.get("result")

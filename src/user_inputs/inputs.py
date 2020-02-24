@@ -5,7 +5,7 @@ class Inputs(object):
 
     nowlist = ['TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z']
 
-    inputlist = ['TTbKRT4u1KQY4ZUs4qQUetq6mQgTXmTB3Yhh']
+    inputlist = ['TTbKRT4vrHMQdyQCATrdu6godeo1FJWSFVVk']
 
     xferlist333 = ['TTbKRT4ooR8Yb4VgRRitEpDt74qGzo7cNVnQ']
 

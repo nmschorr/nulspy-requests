@@ -5,8 +5,8 @@ class SettingsSet(object):
     def __init__(self):
         self.accts_k = SettingsSet.get_addys_k()
         self.accts_w = SettingsSet.get_addys_w()
-        self.settings_k = SettingsSet.settings_set('k')
-        self.settings_w = SettingsSet.settings_set('w')
+        self.settings_k = SettingsSet.settings_set('0')
+        self.settings_w = SettingsSet.settings_set('1')
 
     @staticmethod
     def get_addys_w():   # -- WEST --
@@ -30,7 +30,7 @@ class SettingsSet(object):
         return accts_k
 
     @staticmethod
-    def settings_set(chooser=0):
+    def settings_set(chooser=1):
         settings_d = None
 
         # 1=KathyUbuntu, 0=westteam
@@ -47,9 +47,9 @@ class SettingsSet(object):
         settings_k = {"chain": chain_idk, "url": urlk, "pw": pwk}
         settings_w = {"chain": chain_idw, "url": urlw, "pw": pww}
 
-        if chooser == 'k':  # kathy
+        if chooser == '0':  # kathy
             return settings_k
-        elif chooser == 'w':
+        elif chooser == '1':
             return settings_w
         else:
             print('error')

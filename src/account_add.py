@@ -16,7 +16,7 @@ class CreateAccount(object):
         SetupLogging()
         s = SettingsSet()
 
-        machine = 0   # 1 for west, 0 for kathy
+        machine = 1   # 1 for west, 0 for kathy
 
         if machine == 1:
             accts = s.accts_w
@@ -54,7 +54,7 @@ class CreateAccount(object):
     def get_pri_key(self, address):
         st_obj = SetupTop()
 
-        pw = 'password123'
+        pw = 'contract123'
         method_nm = "getPriKey"
         p_list = [self.chainId, address, pw]
         request = st_obj.setup_top(method_nm, p_list, self.url)
@@ -73,11 +73,11 @@ class CreateAccount(object):
 
     def check_keys(self):
 
-        cklist = ['TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW']
+        cklist = ['TTbKRT4vrHMQdyQCATrdu6godeo1FJWSFVVk']
 
         for i in cklist:
             key = self.get_pri_key(i)
-            bigstr = i + " pk: " + key + " pw: password123"
+            bigstr = i + " pk: " + key
             print(bigstr)
             logging.info(bigstr)
 
@@ -92,5 +92,5 @@ if __name__ == "__main__":
     ####c.create_account()
     # c.check_keys()
     # print(k + " : " + g + " pw: ")
-    c.get_pri_key("TTbKRT4jxSikoQMTyZTk5irDyuEX7SM6SUsw")
+    c.get_pri_key("TTbKRT4vrHMQdyQCATrdu6godeo1FJWSFVVk")
 #  47e9ea04abfcf9e92f91db11726a73a8864b6c1cdd98642c9acf8883855712af

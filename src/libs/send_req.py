@@ -11,6 +11,7 @@ class SendRequest(object):
         the_request = req.prepare()
         session = requests.Session()
         response = session.send(the_request)
-        # print(response.content)
+        print(the_request)
+        print(response.content)
         data_d = json.loads(response.content)
         return data_d
