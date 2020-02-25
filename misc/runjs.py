@@ -8,7 +8,7 @@ from time import sleep
 #
 # scripty3 = 'E:\\nulsjs\\src\\test\\newAddress.js'
 #
-# #s4 = 'E:\\nulsjs\\src\\test\\getBalance(chainId, assetChainId = 2, assetId = 1, address)
+# #s4 = 'E:\\nulsjs\\src\\test\\getBalance(chain, assetChainId = 2, assetId = 1, address)
 # addy= "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7"
 #
 #
@@ -16,7 +16,7 @@ from time import sleep
 #
 # s4 = "require"
 #
-# args = 'chainId, assetChainId = 2, assetId = 1, address=addy'
+# args = 'chain, assetChainId = 2, assetId = 1, address=addy'
 # # success = execute_js('testscript.js')
 
 

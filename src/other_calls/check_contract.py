@@ -105,7 +105,7 @@ class CheckContract(object):
     def req_get_contract(self):
         method_outer = "getContract"
         params_list = [self.chainId, "TTbKRT5DVddw7rDN1UrS9Wo3xGLFszwYwMLR"]  # 4 items
-        #params_list = [self.chainId, self.contract_address]  # 4 items
+        #params_list = [self.chain, self.contract_address]  # 4 items
         self.doit(method_outer, params_list)
 
     def req_get_writer(self):
@@ -213,7 +213,7 @@ if __name__ == "__main__":
 
 
 #  curl -s -X GET -H 'Content-Type: application/json' --data
-# http://0.0.0.0:18003/api/account/address/validate  {"chainId": 0,"address": "tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p"}
+# http://0.0.0.0:18003/api/account/address/validate  {"chain": 0,"address": "tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p"}
 # @Rpcmethod
 # #Rpcmethod
  # curl -H "Content-Type: application/json" -d '{"jsonrpc": "2.0", "method":"ListAPI", "id": 1234}

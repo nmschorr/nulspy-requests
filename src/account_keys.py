@@ -33,7 +33,7 @@ class AccountKeys(object):
         request = st_obj.setup_top(method_nm, p_list, self.url)
         resp1 = SendRequest.send_request(request)
         print(resp1)
-        # print("chainid: ", self.chainId)
+        # print("chainid: ", self.chain)
         # print("address: ", address)
         # print("pww: ", pww)
         return resp1

@@ -1,28 +1,26 @@
 #!/usr/bin/python3.7
 
-class SettingsSet(object):
+ # 0=KathyUbuntu, 1=westteam
 
 
-    @staticmethod
-    def get_settings(chooser) -> dict:
-        print("Settings for ", chooser)
-        # 0=KathyUbuntu, 1=westteam
+def get_settings(machine):
+    if machine == 0:
+        chain0 = 24442
+        url30 = "http://78.47.206.255:18003"
+        url40 = "http://78.47.206.255:18004/jsonrpc"
+        settings_d = {"chain": chain0, "url3": url30, "url4": url40}
+        return settings_d
 
-        chain_idk = 24442
-        urlk3 = "http://78.47.206.255:18003"
-        urlk4 = "http://78.47.206.255:18004/jsonrpc"
+    elif machine == 1:
+        chain1 = 4810
+        url31 = "http://westteam.nulstar.com:18003"
+        url41 = "http://westteam.nulstar.com:18004/jsonrpc"
+        settings_d = {"chain": chain1, "url3": url31, "url4": url41}
+        return settings_d
 
-        # -- # 1  --Westteam = 1
-        chain_idw = 4810
-        urlw3 = "http://westteam.nulstar.com:18003"
-        urlw4 = "http://westteam.nulstar.com:18004/jsonrpc"
-
-        settings_k = {"chain": chain_idk, "url3": urlk3, "url4": urlk4}
-        settings_w = {"chain": chain_idw, "url3": urlw3, "url4": urlw4}
-
-        if chooser == 0:  # kathy
-            return settings_k
-        elif chooser == 1:  # West
-            return settings_w
-        else:
-            print('error')
+    elif machine == 2:
+        chain2 = 2
+        url32 = "http://127.2.0.1:18003"
+        url42 = "http://127.0.0.1:18004/jsonrpc"
+        settings_d = {"chain": chain2, "url3": url32, "url4": url42}
+        return settings_d

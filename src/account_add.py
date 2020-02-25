@@ -80,9 +80,9 @@ class CreateAccount(object):
 
 
 # "method":"importPriKey",
-# "params":[chainId, priKey, password],
+# "params":[chain, priKey, password],
 # "method":"getPriKey",
-# "params":[chainId, address, password],
+# "params":[chain, address, password],
 
 if __name__ == "__main__":
     c = CreateAccount()

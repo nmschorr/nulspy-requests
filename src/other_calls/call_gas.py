@@ -104,7 +104,7 @@ class CallGas(object):
 
 '''
 @Parameters(value = {
-        @Parameter(parameterName = "chainId", requestType = @TypeDescriptor(value = int.class), parameterDes = "链id"),
+        @Parameter(parameterName = "chain", requestType = @TypeDescriptor(value = int.class), parameterDes = "链id"),
         @Parameter(parameterName = "sender",  parameterDes = "交易创建者账户地址"),
         @Parameter(parameterName = "password",  parameterDes = "调用者账户密码"),
         @Parameter(parameterName = "value", requestType = @TypeDescriptor(value = BigInteger.class), parameterDes = "调用者向合约地址转入的主网资产金额，没有此业务时填BigInteger.ZERO"),

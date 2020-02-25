@@ -60,7 +60,7 @@ class CheckContract(object):
 
     #################################  $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 # '''"method":"get_account_balance",
-# "params":[chainId, assetChainId, assetId, address],
+# "params":[chain, assetChainId, assetId, address],
 # '''TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7
 #     "request": {"jsonrpc":"2.0","method":"getAccountBalance","params":[2,2,1,"tNULSeBaMhcccH1KeXhMpH5y3pvtRzatAiuMJk"],"id":1234},
 
@@ -154,7 +154,7 @@ class CheckContract(object):
 
 
 
-# #chainId 	int 	chain id 	yes
+# #chain 	int 	chain id 	yes
 # sender 	string 	Transaction Creator Account Address 	Yes
 # password 	string 	caller account password 	yes
 # value 	biginteger 	The amount of the primary network asset that the caller transferred to the contract address. If there is no such service, fill BigInteger.ZERO 	Yes
@@ -204,7 +204,7 @@ if __name__ == "__main__":
 
 
 
-# chainId 	int 	chain id 	yes
+# chain 	int 	chain id 	yes
 # sender 	string 	Transaction Creator Account Address 	Yes
 # password 	string 	caller account password 	yes
 # value 	biginteger 	The amount of the primary network asset that the caller transferred to the contract address. If there is no such service, fill BigInteger.ZERO 	Yes
