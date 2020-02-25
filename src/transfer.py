@@ -11,7 +11,7 @@ class Transfer(object):
 
     def __init__(self):
         SetupLogging()
-        s = SettingsSet()
+        s = SettingsSet(1)
 
         machine = 0   # 1 for west, 0 for kathy
 
