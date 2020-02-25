@@ -6,28 +6,25 @@ from src.libs.send_req import SendRequest
 from src.libs.setup_log import SetupLogging
 from src.user_inputs.settings_set import SettingsSet
 from src.libs.setup_top import SetupTop
+from src.user_inputs.addresses_single import AddressSingles;
 
 
 class CreateAccount(object):
 
     def __init__(self):
-        machine = 1   # 1 for west, 0 for kathy
-
+        machine = 1
         SetupLogging()
-        st_obj = SettingsSet()   # 1 for west, 0 for kathy
-        settings = st_obj.settings_set(machine)
+        settings_d = SettingsSet().get_settings(machine)     #   machine = 1   # 1 for west, 0 for kathy
+        singles_d = AddressSingles().get_addresses()
 
-        # if machine == 1:
-        #     accts = s.settings_k()
-        #     settings = s.settings_w
-        # else:
-        #     accts = s.accts_k
-        #     settings = s.settings_k
+        self.chainId = settings_d.get('chain')
+        self.url3 = "http://westteam.nulstar.com:18003"
+        self.pw = singles_d.get('pw')
+        self.sender = singles_d.get('sender')
+        # self.receiver = singles_d.get('receiver') # get from inputs
 
-        self.chainId = settings.get('chain')
-        self.url = settings.get('url')
-        self.pw = settings.get('pw')
         self.remark = "transfer to student account"
+        self.id = 99999
 
         # self.receiver = accts.get('receiver') # get from inputs
 

@@ -4,23 +4,31 @@ from src.libs.send_req import SendRequest
 from src.libs.setup_log import SetupLogging
 from src.user_inputs.settings_set import SettingsSet
 from src.libs.setup_top import SetupTop
+from src.user_inputs.addresses_single import AddressSingles;
 
 
 class CallContract(object):
 
     def __init__(self):
         machine = 1
-
         SetupLogging()
-        st_obj = SettingsSet()   # 1 for west, 0 for kathy
-        settings = st_obj.settings_set(machine)     #   machine = 1   # 1 for west, 0 for kathy
+        settings_d = SettingsSet().get_settings(machine)  # machine = 1   # 1 for west, 0 for kathy
+        singles_d = AddressSingles().get_addresses()
 
+        self.chainId = settings_d.get('chain')
+        self.url = "http://westteam.nulstar.com:18004/jsonrpc"
+        self.pw = singles_d.get('pw')
+        self.sender = singles_d.get('sender')
 
-        self.chainId = settings.get('chain')
-        self.url = settings.get('url')
-        self.pw = settings.get('pw')
-        self.sender = accts.get('sender')
-        self.contract_address = accts.get('contract_address')
+        self.id = 99999
+
+        self.chainId = settings_d.get('chain')
+        self.url = settings_d.get('url')
+        self.pw = singles_d.get('pw')
+        self.remark = "student account"
+        self.pw = singles_d.get('pw')
+        self.sender = singles_d.get('sender')
+        self.contract_address = singles_d.get('contract_address')
 
         self.remark = "transfer to student account"
         self.priceofgas = 25                            # anything 25 or over will work

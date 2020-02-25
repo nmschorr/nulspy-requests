@@ -5,6 +5,7 @@ from src.libs.send_req import SendRequest
 from src.libs.setup_log import SetupLogging
 from src.user_inputs.settings_set import SettingsSet
 from src.libs.setup_top import SetupTop
+from src.user_inputs.addresses_single import AddressSingles;
 
 
 class GetAccounts(object):
@@ -14,7 +15,7 @@ class GetAccounts(object):
 
         SetupLogging()
         st_obj = SettingsSet()   # 1 for west, 0 for kathy
-        settings = st_obj.settings_set(machine)     #   machine = 1   # 1 for west, 0 for kathy
+        settings = st_obj.get_settings(machine)     #   machine = 1   # 1 for west, 0 for kathy
 
         self.chainId = settings.get('chain')
         self.url = "http://westteam.nulstar.com:18003"

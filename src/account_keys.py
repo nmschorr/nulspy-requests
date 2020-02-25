@@ -1,34 +1,29 @@
 #!/usr/bin/python3.7
 
-import requests
-import json
 import logging
 from src.libs.send_req import SendRequest
-from src.user_inputs.inputs import Inputs
 from src.libs.setup_log import SetupLogging
 from src.user_inputs.settings_set import SettingsSet
 from src.libs.setup_top import SetupTop
+from src.user_inputs.addresses_single import AddressSingles;
 
 
 class AccountKeys(object):
 
     def __init__(self):
+        machine = 1
         SetupLogging()
-        s = SettingsSet()
+        settings_d = SettingsSet().get_settings(machine)     #   machine = 1   # 1 for west, 0 for kathy
+        singles_d = AddressSingles().get_addresses(machine)
 
-        machine = 1   # 1 for west, 0 for kathy
+        self.chainId = settings_d.get('chain')
+        self.url = "http://westteam.nulstar.com:18003"
+        self.pw = singles_d.get('pw')
+        self.sender = singles_d.get('sender')
+        # self.receiver = singles_d.get('receiver') # get from inputs
 
-        if machine == 1:
-            accts = s.accts_w
-            settings = s.settings_w
-        else:
-            accts = s.accts_k
-            settings = s.settings_k
-
-        self.chainId = settings.get('chain')
-        self.url = settings.get('url')
-        self.pw = settings.get('pw')
-        self.sender = accts.get('sender')
+        self.remark = "transfer to student account"
+        self.id = 99999
 
     def get_pri_key(self, pww, address):
         st_obj = SetupTop()

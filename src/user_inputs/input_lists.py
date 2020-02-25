@@ -3,11 +3,11 @@
 
 class Inputs(object):
 
-    nowlist = ['TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z']
+    x = ['TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z']
 
     inputlist = ['TTbKRT4vrHMQdyQCATrdu6godeo1FJWSFVVk']
 
-    xferlist333 = ['TTbKRT4ooR8Yb4VgRRitEpDt74qGzo7cNVnQ']
+    x = ['TTbKRT4ooR8Yb4VgRRitEpDt74qGzo7cNVnQ']
 
     xferlist = ['TTbKRT4nxYfyWgATiHh3dZBrpFe2osT6H21B',
                 'TTbKRT4o2Wm5aejgdV3pxC2jVYw5DzGsFzj5',
