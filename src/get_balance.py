@@ -11,16 +11,11 @@ class GetBalance(object):
     # http://bin-hex-converter.online-domain-tools.com/
 
     def __init__(self):
-        SetupLogging()
-        s = SettingsSet()
-        machine = 1   # 1 for west, 0 for kathy
+        machine = 1
 
-        if machine == 1:
-            accts = s.accts_w
-            settings = s.settings_w
-        else:
-            accts = s.accts_k
-            settings = s.settings_k
+        SetupLogging()
+        st_obj = SettingsSet()   # 1 for west, 0 for kathy
+        settings = st_obj.settings_set(machine)     #   machine = 1   # 1 for west, 0 for kathy
 
         self.chainId = settings.get('chain')
         self.url = settings.get('url')

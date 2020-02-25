@@ -24,15 +24,14 @@ class GetAccounts(object):
         method_nm = "getAccountList"
         asset = 1
 
-        p_list = [self.chainId, asset, 0]
+        p_list = [self.chainId, asset, 87]
         request = st_obj.setup_top(method_nm, p_list, self.url)
-        resp1 = SendRequest.send_request(request)
-
-        # results_d = resp1.get("result")
-
-        # total_balance = results_d.get("totalBalance")
-        print()
-
+        results_d = SendRequest.send_request(request)
+        result = results_d.get("result")
+        accts_list = result.get("list")
+        for i in accts_list:
+            #print(i)
+            print(i.get('address'))
 
 
 if __name__ == "__main__":
