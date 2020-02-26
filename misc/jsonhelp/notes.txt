@@ -8,7 +8,7 @@ import json
 from requests.auth import HTTPBasicAuth
 from src.getgas import CallGas
 
-class CheckContract(object):
+class SimpleRequests(object):
 
     def __init__(self):
         pass
@@ -183,7 +183,7 @@ class CheckContract(object):
 
 
 if __name__ == "__main__":
-    c = CheckContract()
+    c = SimpleRequests()
     c.get_account_balance()
     # gg = c.create_gas()
     # c.call_contract()

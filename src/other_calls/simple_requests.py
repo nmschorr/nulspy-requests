@@ -1,30 +1,14 @@
 #!/usr/bin/python3.7
 
-# curl -s -X POST -H -v 'Content-Type: application/json' --data '{"jsonrpc":"2.0","method":"get_chain_info","params":[], "id":1234}' http://78.47.206.255:18003
-
-# data:{"jsonrpc":"2.0","method":"invokeView","params":[24442,
-# "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM","getRe iews","(String productId) return Ljava/util/List;",["baseballcap"]],"id":904}
-
-# params is first list
-# 2nd list is items_list or last_list
-
-
-#json is:  {'jsonrpc': '2.0', 'method': 'getContract', 'params': [24442, 'TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM'], 'id': 900032}
-
-#works:
-# curl -s -X POST -H 'Content-Type: application/json' --data '{"jsonrpc": "2.0", "method": "get_account_ledger_list", "params": [4810, "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"], "id": 900008}' http://116.202.157.151:18002
-
-import requests
-import random
 from src.libs.master_setup import master_setup, unpack_d
 from src.libs.setup_top import get_top
 from src.libs.send_req import SendRequest
-import logging
 
-class CheckContract(object):
+
+class SimpleRequests(object):
 
     def __init__(self):
-        machine = 0     #   machine = 1   # 1 for west, 0 for kathy
+        machine = 1     #   machine = 1   # 1 for west, 0 for kathy
 
         settings_d, sender_etc_dd, self.receivers = master_setup(machine)
         self.chain, self.url3, self.sender, self.pw = unpack_d(settings_d, sender_etc_dd)
@@ -49,7 +33,7 @@ class CheckContract(object):
 
     def req_get_chain_info(self):  # uses invoke_view
         method_nm = "get_chain_info"
-        self.doit(method_nm, [self.chain] )
+        self.doit(method_nm, [self.chain])
 
     def get_the_best_block(self):
         method_nm = "getBestBlockHeader"
@@ -76,34 +60,38 @@ class CheckContract(object):
         p = [self.chain, tx_hash]
         self.doit(method_nm, p)
 
+
 if __name__ == "__main__":
-    from time import sleep
-    c = CheckContract()
-    # c.req_get_chain_info()   # easy
-    # sleep(1)
-    # c.req_get_all_prod_ids()
-    # c.req_get_reviews()  ## input contract id, pick product
-    # c.req_get_contract()
-    # c.write_review()
-    # c.get_account_ledger_list()
-    # sleep(1)
-    # c.do_getAddressByPriKey()
-    # c.get_the_best_block()
-    # sleep(1)
-    # c.getAccount1()
-    # sleep(1)
-    # sleep(1)
-    # c.getapi()
-    #c.do_get_account()
-    # c.do_get_account
-    # c.gettx()
-    c.req_get_contract()
-    #c.get_chain_info()
+    s = SimpleRequests()
+    s.get_chain_info()
 
 
 
 
 
+
+
+
+
+
+
+
+
+    # curl -s -X POST -H -v 'Content-Type: application/json' --data '{"jsonrpc":"2.0","method":"get_chain_info","params":[], "id":1234}' http://78.47.206.255:18003
+
+    # data:{"jsonrpc":"2.0","method":"invokeView","params":[24442,
+    # "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM","getRe iews","(String productId) return Ljava/util/List;",["baseballcap"]],"id":904}
+
+    # params is first list
+    # 2nd list is items_list or last_list
+
+    # json is:  {'jsonrpc': '2.0', 'method': 'getContract', 'params': [24442, 'TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM'], 'id': 900032}
+
+    # works:
+    # curl -s -X POST -H 'Content-Type: application/json' --data '{"jsonrpc": "2.0", "method": "get_account_ledger_list", "params": [4810, "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"], "id": 900008}' http://116.202.157.151:18002
+
+    import requests
+    import random
 
 
 
