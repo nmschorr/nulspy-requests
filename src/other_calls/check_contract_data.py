@@ -1,6 +1,6 @@
 #!/usr/bin/python3.7
 
-# curl -s -X POST -H -v 'Content-Type: application/json' --data '{"jsonrpc":"2.0","method":"getChainInfo","params":[], "id":1234}' http://78.47.206.255:18003
+# curl -s -X POST -H -v 'Content-Type: application/json' --data '{"jsonrpc":"2.0","method":"get_chain_info","params":[], "id":1234}' http://78.47.206.255:18003
 
 # data:{"jsonrpc":"2.0","method":"invokeView","params":[24442,
 # "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM","getRe iews","(String productId) return Ljava/util/List;",["baseballcap"]],"id":904}
@@ -9,195 +9,74 @@
 # 2nd list is items_list or last_list
 
 
-#json is:  {'jsonrpc': '2.0', 'method': 'getContract', 'params': [24442, 'TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM'], 'id': 900032}
+from src.libs.master_setup import master_setup, unpack_d
+from src.libs.setup_top import get_top
+from src.libs.send_req import SendRequest
 
-#works:
-# curl -s -X POST -H 'Content-Type: application/json' --data '{"jsonrpc": "2.0", "method": "getAccountLedgerList", "params": [4810, "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"], "id": 900008}' http://116.202.157.151:18002
-
-import requests
-import random
-import json
-from requests.auth import HTTPBasicAuth
-import logging
 
 class CheckContract(object):
 
     def __init__(self):
+        machine = 0     #   machine = 1   # 1 for west, 0 for kathy
 
-        which_server = 1
-
-        if which_server == 0:                      # Kathy
-            #self.url_post  = "http://78.47.206.255:18004/jsonrpc"
-            self.url_post  = "http://78.47.206.255:18003"
-            self.owner = "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7"
-            self.contract_address = "TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM"
-            self.contract_desc = "(String productId, String reviewComments) return LReviewContract$Review;"
-            self.chainId = 24442
-            self.senderk = "TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z"
-
-        elif which_server == 1:                    # Berzeck Westteam
-            self.url_post = "http://116.202.157.151:18004/jsonrpc" # jsonrpc dir?
-            self.owner = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"
-            self.contract_address = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"  #TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW
-            self.chainId = 4810
-
-        elif which_server == 2:                                # home Baby
-            self.url_post = "http://0.0.0.0:18004/jsonrpc"  # jsonrpc dir?
-            self.owner = "tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p"
-            # self.contract = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"  #tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p
-            self.chainId = 2
-
-        self.myhead = dict([("Content-Type", "application/json;charset=UTF-8",)])
-        rand_id = random.randrange(1, 99)
-        r_id = 900000 + rand_id
-        self.jsonrpc_d = {"jsonrpc": "2.0"}
-        self.id_dict: dict = {"id": r_id}
-        self.passwd = "nuls123456"
+        settings_d, sender_etc_dd, self.receivers = master_setup(machine)
+        self.chain, self.url3, self.sender, self.pw = unpack_d(settings_d, sender_etc_dd)
+        self.url4 = settings_d.get('url4')
+        self.remark = "transfer to account"
+        self.asset = 1
+        self.id = 99999
+        
         self.emp_list = []
 
-    def doit(self, method_outer, p_list):
+    def doit(self, method_nm, p_list, four=0):   #use url for url4
+        if four:
+            url = self.url4
+        else:
+            url = self.url3
+        request = get_top(method_nm, p_list, url)
+        the_answer = SendRequest.send_request(request)
 
-        url = self.url_post
-        head = self.myhead
-        req = requests.Request('POST', url, headers=head)
-
-        self.jsonrpc_d.update({"method": method_outer})
-
-        param_d: dict = {"params": p_list}
-        param_d.update(self.id_dict)
-
-        self.jsonrpc_d.update(param_d)
-        req.json = self.jsonrpc_d
-
-        print("  RUNNING --*--*--* ", str.upper(method_outer), " --*--*--* ")
-        print("json is: ", req.json)
-        the_request = req.prepare()
-        print("the_req is: ", str(the_request.body))
-
-        session = requests.Session()
-        the_answer = session.send(the_request)
-        print(the_request.headers)
-        print(the_request.url)
         print("stat: ", the_answer)
-        print("  ANSWER to query ", method_outer, " is: ")
+        print("  ANSWER to query ", method_nm, " is: ")
         print(" ---------> The response is: " + the_answer.text + " ---------> \n\n")
 
-    def req_get_chain_info(self):  # uses invoke_view
-        method_outer = "getChainInfo"
-        self.doit(method_outer, [self.chainId] )
-
-    def req_get_all_prod_ids(self):   # uses invoke_view
-        method_outer = "invokeView"
+    def req_get_all_prod_ids(self, contract):   # uses invoke_view
+        method_nm = "invokeView"
         method_inner = "getAllProductIds"  # goes in params list
         return_str = "() return String"
-        params_list = [self.chainId, self.contract_address, method_inner, return_str, self.emp_list]  # 4 items
-        self.doit(method_outer, params_list)
+        params_list = [self.chain, contract, method_inner, return_str, self.emp_list]  # 4 items
+        self.doit(method_nm, params_list)
 
-    def req_get_reviews(self):  # "invokeView"
-        method_outer = "invokeView"
+    def req_get_reviews(self, contract):  # "invokeView"
+        method_nm = "invokeView"
         method_inner = "getReviews"
         return_val_str = "(String productId) return Ljava/util/List;"
         product_list = ["req_get_all_prod_ids"]  # 4 items
-        params_list = [self.chainId, self.contract_address, method_inner,
+        params_list = [self.chain, contract, method_inner,
                        return_val_str, product_list]  # 4
-        self.doit(method_outer, params_list)
+        self.doit(method_nm, params_list)
 
-    def req_get_contract(self):
-        method_outer = "getContract"
-        params_list = [self.chainId, "TTbKRT5DVddw7rDN1UrS9Wo3xGLFszwYwMLR"]  # 4 items
-        #params_list = [self.chain, self.contract]  # 4 items
-        self.doit(method_outer, params_list)
+    def req_get_contract(self, addr):
+        method_nm = "getContract"
+        params_list = [self.chain, addr]  # 4 items
+        self.doit(method_nm, params_list)
 
-    def req_get_writer(self):
-        method_outer = "getWriter"
-        params_list = [self.chainId, self.contract_address]  # 4 items
-        self.doit(method_outer, params_list)
+    def req_get_writer(self, contract):
+        method_nm = "getWriter"
+        params_list = [self.chain, contract]  # 4 items
+        self.doit(method_nm, params_list)
 
-    def getTheBestBlock(self):
-        method_outer = "getBestBlockHeader"
-        p = [ self.chainId ]
-        self.doit(method_outer, p)
-
-    def getChainInfo(self):
-        method_outer = "getChainInfo"
-        p = [self.chainId]
-        self.doit(method_outer, p)
-
-    def getInfo(self):
-        method_outer = "info"
-        p = []
-        self.doit(method_outer, p)
-
-    def getAccountLedgerList(self):
-        method_outer = "getAccountLedgerList"
-        p = [self.chainId, self.contract_address]
-        self.doit(method_outer, p)
-
-    def do_getAccount(self):
-        method_outer = "getAddressByPriKey"
-        pk = "a9b05bf06764f83297ba906c3401c7b4945dd8fbb4dafeed1234809f0c4782a2"  #S7 on Kathy
-        p = [self.chainId, pk]
-        self.doit(method_outer, p)
-
-    def do_getAccount(self):
-        method_outer = "getAccount"
-        pk = "TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7"  #S7 on Kathy
-        p = [self.chainId, pk, "nuls123456"]
-        self.doit(method_outer, p)
-
-    def getAccount1(self):
-        method_outer = "getAccount"
-
-        p = [self.chainId, "tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p"]  # Baby
-        self.doit(method_outer, p)
-
-    def do_getAddressByPriKey(self):
-        method_outer = "getAddressByPriKey"
-        pk = "a9b05bf06764f83297ba906c3401c7b4945dd8fbb4dafeed1234809f0c4782a2"  #S7 on Kathy
-
-        #pk = "92dc99194317649ce165e5a8185fc05a751b293c1faf787636adba70e06804c6d5432e5ecc12096c5a3b33a0d6812896"
-        p = [self.chainId, pk]
-        self.doit(method_outer, p)
-
-    def getapi(self):
-        method_outer = "getDeclaredMethods"  # requestMethods   getMethods  callCommands  getDeclaredMethods
-        p = [self.chainId]
-        self.doit(method_outer, p)
-
-    def getaccounts(self):
-        method_outer = "getAccounts"
-        p = [self.chainId]
-        self.doit(method_outer, p)
-
-    def gettx(self):
-        method_outer = "getTx"
-        txHash = '3053994246ef3b0eeb8fd2e070cfdfe37bf137b255db739244a57fe7a810b084'
-        p = [self.chainId, txHash]
-        self.doit(method_outer, p)
+    def get_account_ledger_list(self, contract):
+        method_nm = "getAccountLedgerList"
+        p = [self.chain, contract]
+        self.doit(method_nm, p)
 
 if __name__ == "__main__":
-    from time import sleep
     c = CheckContract()
-    # c.req_get_chain_info()   # easy
-    # sleep(1)
     # c.req_get_all_prod_ids()
     # c.req_get_reviews()  ## input contract id, pick product
     # c.req_get_contract()
-    # c.write_review()
-    # c.getAccountLedgerList()
-    # sleep(1)
-    # c.do_getAddressByPriKey()
-    # c.getTheBestBlock()
-    # sleep(1)
-    # c.getAccount1()
-    # sleep(1)
-    # sleep(1)
-    # c.getapi()
-    #c.do_getAccount()
-    # c.do_getAccount
-    # c.gettx()
     c.req_get_contract()
-    #c.getChainInfo()
 
 
 

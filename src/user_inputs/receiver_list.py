@@ -3,15 +3,13 @@
 
 def get_receiver_list():   ## use 'inputlist' as official name of list you want to use, rename the others
 
-    #x = ['TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z']
-
     receiver_list = ['TTSETeCA3FWPueNuqEcKUNoxsuKZArhTA7Q2ecZ']  # receiver
 
     return receiver_list
 
 
 
-
+#TTSETeCA3FWPueNuqEcKUNoxsuKZArhTA7Q2ecZ
 '''    
         store reuseable lists:
         

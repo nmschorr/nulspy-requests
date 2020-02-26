@@ -19,11 +19,10 @@ class Transfer(object):
         self.asset = 1
         self.id = 99999
 
-    def transfer(self):      #ch assetid address toaddy pw amt rem
+    def transfer(self, base_amt):      #ch assetid address toaddy pw amt rem
         method_nm = 'transfer'
-        base_amt = 2
-
-        amt = base_amt * (10**8)
+        multiplier = 10**8
+        amt = base_amt * multiplier
         #amt = 2000 * (10**8) - 2000
 
         for receiver in self.receivers:
@@ -36,7 +35,7 @@ class Transfer(object):
 
 if __name__ == "__main__":
     c = Transfer()
-    c.transfer()
+    c.transfer(339)
 
 
 

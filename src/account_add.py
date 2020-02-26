@@ -36,35 +36,9 @@ class CreateAccount(object):
             print("-----" + bigstr)
             logging.info(bigstr)
 
-    def get_pri_key(self, address):
-        st_obj = SetupTop()
-
-        pw = 'contract123'
-        method_nm = "getPriKey"
-        p_list = [self.chain, address, pw]
-        request = st_obj.setup_top(method_nm, p_list, self.url3)
-        resp1 = SendRequest.send_request(request)
-        print(resp1)
-        return resp1
-
-    def import_pri_key(self, pri_key):
-        method_nm = "importPriKey"
-        p_list = [self.chain, pri_key, self.pw]
-        request = get_top(method_nm, p_list, self.url3)
-        resp1 = SendRequest.send_request(request)
-
         # print(result)
-        return resp1
+        return response2
 
-    def check_keys(self):
-
-        cklist = ['TTbKRT4vrHMQdyQCATrdu6godeo1FJWSFVVk']
-
-        for i in cklist:
-            key = self.get_pri_key(i)
-            bigstr = i + " pk: " + key
-            print(bigstr)
-            logging.info(bigstr)
 
 
 # "method":"importPriKey",

@@ -20,7 +20,7 @@ class GetAccounts(object):
 
     def getaccounts(self):
         method_nm = "getAccountList"
-        length = 87
+        length = 287
         p_list = [self.chain, self.asset, length]
         request = get_top(method_nm, p_list, self.url3)
         resp1 = SendRequest.send_request(request)

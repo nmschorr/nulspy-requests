@@ -20,24 +20,23 @@ def get_sender_etc_dict(machine):
             }
 #password123
 
-
     elif machine == 0:
         sender_etc_d = {
-            'sender': 'TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7',
+            'sender': 'TTSETeCA3FWPueNuqEcKUNoxsuKZArhTA7Q2ecZ',
 
-            'pw': 'nuls123456',
+            'pw': 'password123',
             # 'pw2': 'password123',
             #
             # 'pw': 'nuls123456',
-            'buyer': 'resultFromCmd.txt',
+            'buyer': 'TTSETeCA3FeQmoc3i8393zZV9WWPU5FmMLQs317',
 
-            'contract': 'TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z' #?
+            'contract': 'TTSETeCA3FueL9cKCiDR8vAiRiGVtVCJksEsstM' #?
             }
 
     return sender_etc_d
 
-
-
+# TTSETeCA3FWPueNuqEcKUNoxsuKZArhTA7Q2ecZ  kathys
+#TTSETeCA3FeQmoc3i8393zZV9WWPU5FmMLQs317
 
         # TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW  west?
 #TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7

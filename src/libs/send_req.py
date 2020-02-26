@@ -12,6 +12,7 @@ class SendRequest(object):
         session = requests.Session()
         response = session.send(the_request)
         print(the_request)
+        print()
         print(response.content)
         data_d = json.loads(response.content)
         return data_d

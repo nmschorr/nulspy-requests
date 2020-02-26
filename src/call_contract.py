@@ -19,7 +19,6 @@ class CallContract(object):
         self.contract = sender_etc_dd.get('contract')
         self.contract_desc = "(String productId, String reviewComments) return LReviewContract$Review;"
 
-
     def call_contract(self, val, args):
         multiplier = (10**8)
         value_asset = val * multiplier
