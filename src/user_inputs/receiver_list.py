@@ -5,21 +5,21 @@ def get_receiver_list():   ## use 'inputlist' as official name of list you want 
 
     #x = ['TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z']
 
-    receiver_list = ['TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z']  #receiver
+    receiver_list = ['TTSETeCA3FWPueNuqEcKUNoxsuKZArhTA7Q2ecZ']  # receiver
 
     return receiver_list
-    #TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7
 
-
-    # addr_list = ['TTbKRT4vrHMQdyQCATrdu6godeo1FJWSFVVk']
-#
 
 
 
 '''    
         store reuseable lists:
         
-    x = ['TTbKRT4ooR8Yb4VgRRitEpDt74qGzo7cNVnQ']
+    #TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7
+    #TTSETeCA3FWPueNuqEcKUNoxsuKZArhTA7Q2ecZ
+
+    # addr_list = ['TTbKRT4vrHMQdyQCATrdu6godeo1FJWSFVVk']
+#    x = ['TTbKRT4ooR8Yb4VgRRitEpDt74qGzo7cNVnQ']
 
     xferlist = ['TTbKRT4nxYfyWgATiHh3dZBrpFe2osT6H21B',
                 'TTbKRT4o2Wm5aejgdV3pxC2jVYw5DzGsFzj5',

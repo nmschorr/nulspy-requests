@@ -44,7 +44,7 @@ class CheckContract(object):
         elif which_server == 2:                                # home Baby
             self.url_post = "http://0.0.0.0:18004/jsonrpc"  # jsonrpc dir?
             self.owner = "tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p"
-            # self.contract_address = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"  #tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p
+            # self.contract = "TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW"  #tNULSeBaMmkJbN4ypkbGfhcXdbgjr1HqC2iy8p
             self.chainId = 2
 
         self.myhead = dict([("Content-Type", "application/json;charset=UTF-8",)])
@@ -105,7 +105,7 @@ class CheckContract(object):
     def req_get_contract(self):
         method_outer = "getContract"
         params_list = [self.chainId, "TTbKRT5DVddw7rDN1UrS9Wo3xGLFszwYwMLR"]  # 4 items
-        #params_list = [self.chain, self.contract_address]  # 4 items
+        #params_list = [self.chain, self.contract]  # 4 items
         self.doit(method_outer, params_list)
 
     def req_get_writer(self):
