@@ -23,8 +23,9 @@ class GetAccounts(object):
         length = 287
         p_list = [self.chain, self.asset, length]
         request = get_top(method_nm, p_list, self.url3)
-        resp1 = SendRequest.send_request(request)
+        resp1, rstr = SendRequest.send_request(request)
         results_d = resp1.get("result")
+        return results_d
 
 
 if __name__ == "__main__":

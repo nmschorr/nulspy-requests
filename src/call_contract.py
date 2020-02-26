@@ -32,9 +32,9 @@ class CallContract(object):
                   self.contract, contract_methodname, self.contract_desc, args, remark]
         request = get_top(method_nm, p_list, self.url4)
         resp1 = SendRequest.send_request(request)
-        results_d = resp1.get("result")
-        print(resp1)
-        return resp1
+        results_d, rstr = resp1.get("result")
+        print(rstr)
+        return rstr
 
 
 if __name__ == "__main__":

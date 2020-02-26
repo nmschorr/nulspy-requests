@@ -29,8 +29,8 @@ class Transfer(object):
             print("doing this receiver: ", receiver)
             p_list = [self.chain, self.asset, self.sender, receiver, self.pw, amt, self.remark]
             request = get_top(method_nm, p_list, self.url4)
-            resp1 = SendRequest.send_request(request)
-            print("resp1: ", resp1)
+            resp1, rstr = SendRequest.send_request(request)
+            print("resp1: ", rstr)
 
 
 if __name__ == "__main__":

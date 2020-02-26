@@ -1,5 +1,6 @@
 #!/usr/bin/python3.7
 
+import json
 from src.libs.master_setup import master_setup, unpack_d
 from src.libs.setup_top import get_top
 from src.libs.send_req import SendRequest
@@ -25,15 +26,10 @@ class SimpleRequests(object):
         else:
             url = self.url3
         request = get_top(method_nm, p_list, url)
-        the_answer = SendRequest.send_request(request)
+        response_d = SendRequest.send_request(request)
 
-        print("stat: ", the_answer)
         print("  ANSWER to query ", method_nm, " is: ")
-        print(" ---------> The response is: " + the_answer.text + " ---------> \n\n")
-
-    def req_get_chain_info(self):  # uses invoke_view
-        method_nm = "get_chain_info"
-        self.doit(method_nm, [self.chain])
+        print(" ---------> The response is: " + json.dumps(response_d) + " ---------> \n\n")
 
     def get_the_best_block(self):
         method_nm = "getBestBlockHeader"
@@ -50,11 +46,6 @@ class SimpleRequests(object):
         p = [self.chain, acct]
         self.doit(method_nm, p)
 
-    def get_api(self):
-        method_nm = "getDeclaredMethods"  # requestMethods   getMethods  callCommands  getDeclaredMethods
-        p = [self.chain]
-        self.doit(method_nm, p)
-
     def get_tx(self, tx_hash):
         method_nm = "getTx"
         p = [self.chain, tx_hash]
@@ -63,7 +54,7 @@ class SimpleRequests(object):
 
 if __name__ == "__main__":
     s = SimpleRequests()
-    s.get_chain_info()
+    s.get_account('TTbKRT4vrHMQdyQCATrdu6godeo1FJWSFVVk')
 
 
 

@@ -5,6 +5,7 @@ from src.libs.setup_top import get_top
 from src.libs.send_req import SendRequest
 import logging
 
+
 class AccountKeys(object):
 
     def __init__(self):
@@ -22,21 +23,22 @@ class AccountKeys(object):
 
         p_list = [self.chain, addr, pww]
         request = get_top(method_nm, p_list, self.url4)
-        resp1 = SendRequest.send_request(request)
-        print(resp1)
-        return resp1
+        resp_d, rstr = SendRequest.send_request(request)
+        return resp_d.get('result')
 
-    def do_get_account_byprikey(self, pk):
+    def get_account_byprikey(self, pk):
         method_nm = "getAddressByPriKey"
         p_list = [self.chain, pk]
         request = get_top(method_nm, p_list, self.url3)
-        resp1 = SendRequest.send_request(request)
+        resp_d, rstr = SendRequest.send_request(request)
+        return resp_d.get('result')
 
     def import_pri_key(self, pri_key):
         method_nm = "importPriKey"
         p_list = [self.chain, pri_key, self.pw]
         request = get_top(method_nm, p_list, self.url3)
-        resp1 = SendRequest.send_request(request)
+        resp_d, rstr = SendRequest.send_request(request)
+        return resp_d.get('result')
 
     def check_keys(self, addr):
         for i in self.receivers:

@@ -8,7 +8,7 @@ def get_sender_etc_dict(machine):
     sender_etc_d = None
     if machine == 1:
         sender_etc_d = {
-            'sender': 'TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z',
+            'sender': 'TTbKRT4vrHMQdyQCATrdu6godeo1FJWSFVVk',
 
             # 'pw2': 'password123',
 

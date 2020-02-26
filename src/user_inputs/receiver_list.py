@@ -3,7 +3,7 @@
 
 def get_receiver_list():   ## use 'inputlist' as official name of list you want to use, rename the others
 
-    receiver_list = ['TTSETeCA3FWPueNuqEcKUNoxsuKZArhTA7Q2ecZ']  # receiver
+    receiver_list = ['TTbKRT4vrHMQdyQCATrdu6godeo1FJWSFVVk']  # receiver
 
     return receiver_list
 

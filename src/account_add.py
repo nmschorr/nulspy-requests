@@ -5,6 +5,7 @@ import logging
 from src.libs.master_setup import master_setup, unpack_d
 from src.libs.setup_top import get_top
 from src.libs.send_req import SendRequest
+from src.account_keys import AccountKeys
 
 
 class CreateAccount(object):
@@ -19,25 +20,26 @@ class CreateAccount(object):
         self.asset = 1
         self.id = 99999
 
+        self.aks_obj = AccountKeys()
+
     def create_account(self):
         rg = 1
-        for i in self.receivers(rg):
-            pw = 'password123'
+        for i in range(rg):
             method_nm = "createAccount"
-            p_list = [self.chain, 1, pw]
-            request = get_top(method_nm, p_list, self.url3)
-            response = SendRequest.send_request(request)
+            p_list = [self.chain, 1, self.pw]
+            request = get_top(method_nm, p_list, self.url4)
+            response, rstr  = SendRequest.send_request(request)
             results_d = response.get("result")
 
             addr = results_d[0]
-            pri_key = self.get_pri_key(addr)
-            response2 = self.import_pri_key(pri_key)
-            bigstr = "\n---created this account: " + addr + "  prikey: " + pri_key + "  pw: " + pw
+            pri_key = self.aks_obj.get_pri_key(addr, self.pw)
+            response2 = self.aks_obj.import_pri_key(pri_key)
+            bigstr = "\n---created this account: " + addr + "  prikey: " + pri_key + "  pw: " + self.pw
             print("-----" + bigstr)
             logging.info(bigstr)
 
-        # print(result)
-        return response2
+        print(rstr)
+        # return response2
 
 
 
