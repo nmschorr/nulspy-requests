@@ -1,36 +1,39 @@
 #!/usr/bin/python3.7
 
 import logging
-from src.libs.send_req import SendRequest
 from src.libs.setup_log import SetupLogging
-from src.user_inputs.settings_set import SettingsSet
-from src.libs.setup_top import SetupTop
-from src.user_inputs.addresses_single import AddressSingles;
+from src.libs.setup_top import get_top
+from src.libs.send_req import SendRequest
+import src.user_inputs.settings_main as settings
+
+import src.user_inputs.address_set as addr_set
+import src.user_inputs.address_lists as addr_lists
 
 
 class AccountKeys(object):
 
     def __init__(self):
-        machine = 1
+        machine = 0     #   machine = 1   # 1 for west, 0 for kathy
         SetupLogging()
-        settings_d = SettingsSet().get_settings(machine)     #   machine = 1   # 1 for west, 0 for kathy
-        singles_d = AddressSingles().get_addresses(machine)
+        settings_d = settings.get_settings(machine)
+        addr_set_d = addr_set.get_addr_set(machine)
 
-        self.chainId = settings_d.get('chain')
-        self.url = "http://westteam.nulstar.com:18003"
-        self.pw = singles_d.get('pw')
-        self.sender = singles_d.get('sender')
-        # self.receiver = singles_d.get('receiver') # get from inputs
+        self.receivers = addr_lists.get_receiver_list()
 
-        self.remark = "transfer to student account"
+        self.chain = settings_d.get('chain')
+        self.url3 = settings_d.get('url3')
+        self.sender = addr_set_d.get('sender')
+        self.pw = addr_set_d.get('pw')
+
+        self.remark = "transfer to account"
+        self.asset = 1
         self.id = 99999
 
     def get_pri_key(self, pww, address):
-        st_obj = SetupTop()
 
         method_nm = "getPriKey"
-        p_list = [self.chainId, "TTbKRT4o2oSxovbS7xtSauZYtrWFAUsejtti", 'kathy123']
-        request = st_obj.setup_top(method_nm, p_list, self.url)
+        p_list = [self.chain, "TTbKRT4o2oSxovbS7xtSauZYtrWFAUsejtti", 'kathy123']
+        request = get_top(method_nm, p_list, self.url3)
         resp1 = SendRequest.send_request(request)
         print(resp1)
         # print("chainid: ", self.chain)

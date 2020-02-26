@@ -4,9 +4,10 @@
 # usage:  from src.user_inputs.input_singles import AddressSingles;  dict = AddressSingles.get_addresses()
 
 
-def get_singles(machine):
+def get_addr_set(machine):
+    addr_set_d = None
     if machine == 1:
-        singles_d = {
+        addr_set_d = {
             'sender': 'TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z',
 
             'sender_pw': 'password123',
@@ -15,25 +16,25 @@ def get_singles(machine):
 
             'buyer': 'TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z',
 
-            'receiver': 'TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z',
-
             'contract': 'TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z'
             }
-        return singles_d
 
-    if machine == 0:
-        singles_d = {
+    elif machine == 0:
+        addr_set_d = {
             'sender': 'TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW',
 
-            'sender_pw': 'password123',
+            #'sender_pw': 'password123',
 
-            # 'sender_pw2': 'nuls123456',
+            'sender_pw': 'nuls123456',
 
             'buyer': 'TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW',
 
-            'receiver': 'TTSETeCA3Fdhsu91EFmTuwHpXaNfWgUDL35sZS7',
-
             'contract': 'TTSETeCA3FWQ3Y32TCFEwJvzqGbxiXNxtkzPb3z'
             }
-        return singles_d
+
+    return addr_set_d
+
+
+
+
         # TTbKRT4qEYosbviWgnWLqnMghDWh1CJUgqLW  kathys

@@ -2,9 +2,9 @@
 
 from src.libs.send_req import SendRequest
 from src.libs.setup_log import SetupLogging
-from src.user_inputs.settings_set import SettingsSet
+from src.user_inputs.settings_main import SettingsSet
 from src.libs.setup_top import SetupTop
-from src.user_inputs.addresses_single import AddressSingles;
+from src.user_inputs.address import AddressSingles;
 
 
 class CallContract(object):

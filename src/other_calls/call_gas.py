@@ -5,9 +5,9 @@
 import requests
 import json
 from src.libs.send_req import SendRequest
-from src.user_inputs.input_lists import Inputs
+from src.user_inputs.address_list import Inputs
 from src.libs.setup_log import SetupLogging
-from src.user_inputs.settings_set import SettingsSet
+from src.user_inputs.settings_main import SettingsSet
 from src.libs.setup_top import SetupTop
 class CallGas(object):
 

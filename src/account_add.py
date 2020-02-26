@@ -2,46 +2,47 @@
 
 
 import logging
-from src.libs.send_req import SendRequest
 from src.libs.setup_log import SetupLogging
-from src.user_inputs.settings_set import SettingsSet
-from src.libs.setup_top import SetupTop
-from src.user_inputs.addresses_single import AddressSingles;
+from src.libs.setup_top import get_top
+from src.libs.send_req import SendRequest
+import src.user_inputs.settings_main as settings
+
+import src.user_inputs.address_set as addr_set
+import src.user_inputs.address_lists as addr_lists
 
 
 class CreateAccount(object):
 
     def __init__(self):
-        machine = 1
+        machine = 0     #   machine = 1   # 1 for west, 0 for kathy
         SetupLogging()
-        settings_d = SettingsSet().get_settings(machine)     #   machine = 1   # 1 for west, 0 for kathy
-        singles_d = AddressSingles().get_addresses()
+        settings_d = settings.get_settings(machine)
+        addr_set_d = addr_set.get_addr_set(machine)
 
-        self.chainId = settings_d.get('chain')
-        self.url3 = "http://westteam.nulstar.com:18003"
-        self.pw = singles_d.get('pw')
-        self.sender = singles_d.get('sender')
-        # self.receiver = singles_d.get('receiver') # get from inputs
+        self.receivers = addr_lists.get_receiver_list()
 
-        self.remark = "transfer to student account"
+        self.chain = settings_d.get('chain')
+        self.url3 = settings_d.get('url3')
+        self.sender = addr_set_d.get('sender')
+        self.pw = addr_set_d.get('pw')
+
+        self.remark = "transfer to account"
+        self.asset = 1
         self.id = 99999
 
-        # self.receiver = accts.get('receiver') # get from inputs
-
     def create_account(self):
-        st_obj = SetupTop()
         rg = 1
-        for i in range(rg):
+        for i in self.receivers(rg):
             pw = 'password123'
             method_nm = "createAccount"
-            p_list = [self.chainId, 1, pw]
-            request = st_obj.setup_top(method_nm, p_list, self.url)
+            p_list = [self.chain, 1, pw]
+            request = get_top(method_nm, p_list, self.url3)
             response = SendRequest.send_request(request)
             results_d = response.get("result")
 
             addr = results_d[0]
             pri_key = self.get_pri_key(addr)
-            response = self.import_pri_key(pri_key)
+            response2 = self.import_pri_key(pri_key)
             bigstr = "\n---created this account: " + addr + "  prikey: " + pri_key + "  pw: " + pw
             print("-----" + bigstr)
             logging.info(bigstr)
