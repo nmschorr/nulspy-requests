@@ -17,7 +17,7 @@ from src.libs.send_req import SendRequest
 class CheckContract(object):
 
     def __init__(self):
-        machine = 0     #   machine = 1   # 1 for west, 0 for kathy
+        machine = 1     #   machine = 1   # 1 for west, 0 for kathy
 
         settings_d, sender_etc_dd, self.receivers = master_setup(machine)
         self.chain, self.url3, self.sender, self.pw = unpack_d(settings_d, sender_etc_dd)
@@ -38,7 +38,8 @@ class CheckContract(object):
 
         print("stat: ", the_answer)
         print("  ANSWER to query ", method_nm, " is: ")
-        print(" ---------> The response is: " + the_answer.text + " ---------> \n\n")
+#        print(" ---------> The response is: " + the_answer.text + " ---------> \n\n")
+        return the_answer
 
     def req_get_all_prod_ids(self, contract):   # uses invoke_view
         method_nm = "invokeView"
@@ -54,7 +55,16 @@ class CheckContract(object):
         product_list = ["req_get_all_prod_ids"]  # 4 items
         params_list = [self.chain, contract, method_inner,
                        return_val_str, product_list]  # 4
-        self.doit(method_nm, params_list)
+        rlist = self.doit(method_nm, params_list)
+        return rlist
+
+    def view_reviews(self, contract):  # "invokeView"
+        method_nm = "invokeView"
+        method_inner = "getReviews"
+        return_val_str = "(String productId) return Ljava/util/List;"
+        params_list = [self.chain, contract, method_inner, return_val_str, ["golfball"]]  # 4
+        rlist = self.doit(method_nm, params_list)
+        return rlist
 
     def req_get_contract(self, addr):
         method_nm = "getContract"
@@ -76,11 +86,13 @@ if __name__ == "__main__":
     # c.req_get_all_prod_ids()
     # c.req_get_reviews()  ## input contract id, pick product
     # c.req_get_contract()
-    c.req_get_contract()
+    ctr = 'TTbKRT5DVddw7rDN1UrS9Wo3xGLFszwYwMLR'
+    c.req_get_contract(ctr)
+    r = c.view_reviews(ctr)
+    print()
 
 
-
-
+# 'params': [{'type': 'String', 'name': 'productId', 'required': True}]},
 
 
 

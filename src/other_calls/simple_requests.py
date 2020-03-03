@@ -55,6 +55,7 @@ class SimpleRequests(object):
 if __name__ == "__main__":
     s = SimpleRequests()
     s.get_account('TTbKRT4vrHMQdyQCATrdu6godeo1FJWSFVVk')
+    s.get_chain_info()
 
 
 
