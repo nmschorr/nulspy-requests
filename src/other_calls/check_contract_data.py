@@ -12,7 +12,7 @@
 from src.libs.master_setup import master_setup, unpack_d
 from src.libs.setup_top import get_top
 from src.libs.send_req import SendRequest
-
+import json
 
 class CheckContract(object):
 
@@ -81,14 +81,20 @@ class CheckContract(object):
         p = [self.chain, contract]
         self.doit(method_nm, p)
 
+
 if __name__ == "__main__":
     c = CheckContract()
     # c.req_get_all_prod_ids()
     # c.req_get_reviews()  ## input contract id, pick product
     # c.req_get_contract()
     ctr = 'TTbKRT5DVddw7rDN1UrS9Wo3xGLFszwYwMLR'
-    c.req_get_contract(ctr)
+    #c.req_get_contract(ctr)
     r = c.view_reviews(ctr)
+    #json_object = json.loads(r)
+
+    json_formatted_str = json.dumps(r, indent=2)
+
+    print(json_formatted_str)
     print()
 
 
